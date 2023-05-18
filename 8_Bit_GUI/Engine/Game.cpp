@@ -16,6 +16,7 @@ void Game::setup() {
 	gui.set_Target_SubGui(0, 0);
 	gui.set_RGB_on_Gui(black);
 
+	/*
 	gui.set_Image_at_LED(17, funky_chars[51]); //S
 	gui.set_Image_at_LED(18, funky_chars[53]); //U
 	gui.set_Image_at_LED(19, funky_chars[48]); //P
@@ -38,4 +39,28 @@ void Game::setup() {
 	gui.set_Image_at_LED(40, funky_chars[39]); //G
 	gui.set_Image_at_LED(41, funky_chars[53]); //U
 	gui.set_Image_at_LED(42, funky_chars[57]); //Y
+	*/
+
+	gui.set_Image_at_Pixel((1024 / 2) - 500, (900 / 2) - 400, funky_chars[51]); //S
+	gui.set_Image_at_Pixel((1024 / 2) - 430, (900 / 2) - 400, funky_chars[53]); //U
+	gui.set_Image_at_Pixel((1024 / 2) - 360, (900 / 2) - 400, funky_chars[48]); //P
+	gui.set_Image_at_Pixel((1024 / 2) - 280, (900 / 2) - 400, funky_chars[37]); //E
+	gui.set_Image_at_Pixel((1024 / 2) - 210, (900 / 2) - 400, funky_chars[50]); //R
+	gui.set_Image_at_Pixel((1024 / 2) - 140, (900 / 2) - 400, funky_chars[33]); //A
+	gui.set_Image_at_Pixel((1024 / 2) - 70, (900 / 2) - 400, funky_chars[35]); //C
+	gui.set_Image_at_Pixel((1024 / 2) , (900 / 2) - 400, funky_chars[52]); //T
+	gui.set_Image_at_Pixel((1024 / 2) + 70, (900 / 2) - 400, funky_chars[41]); //I
+	gui.set_Image_at_Pixel((1024 / 2) + 140, (900 / 2) - 400, funky_chars[47]); //O
+	gui.set_Image_at_Pixel((1024 / 2) + 210, (900 / 2) - 400, funky_chars[46]); //N
+	gui.set_Image_at_Pixel((1024 / 2) + 280, (900 / 2) - 400, funky_chars[45]); //M
+	gui.set_Image_at_Pixel((1024 / 2) + 360, (900 / 2) - 400, funky_chars[33]); //A
+	gui.set_Image_at_Pixel((1024 / 2) + 430, (900 / 2) - 400, funky_chars[46]); //N
+	gui.set_Image_at_Pixel((1024 / 2) + 500, (900 / 2) - 400, funky_chars[48]); //P
+	gui.set_Image_at_Pixel((1024 / 2) - 500, (900 / 2) - 300, funky_chars[47]); //O
+	gui.set_Image_at_Pixel((1024 / 2) - 430, (900 / 2) - 300, funky_chars[55]); //W
+	gui.set_Image_at_Pixel((1024 / 2) - 360, (900 / 2) - 300, funky_chars[37]); //E
+	gui.set_Image_at_Pixel((1024 / 2) - 280, (900 / 2) - 300, funky_chars[50]); //R
+	gui.set_Image_at_Pixel((1024 / 2) - 210, (900 / 2) - 300, funky_chars[39]); //G
+	gui.set_Image_at_Pixel((1024 / 2) - 140, (900 / 2) - 300, funky_chars[53]); //U
+	gui.set_Image_at_Pixel((1024 / 2) - 70, (900 / 2) - 300, funky_chars[57]); //Y
 }

@@ -19,8 +19,10 @@ private:
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
 	uint8_t green[3] = { 186, 254, 202 };
+	uint8_t green_screen[3] = {0,5,0};
 
 	Image funky_chars = Image("Images/funky_chars.bmp", white, red, 15, 8);
+	Image vermin_vibe = Image("Images/vermin_vibes_1989.bmp", green_screen, red, 14, 13);
 
 	bool start = true;
 

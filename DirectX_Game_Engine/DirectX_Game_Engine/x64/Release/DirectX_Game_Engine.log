@@ -1,0 +1,9 @@
+﻿  Game.cpp
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(47,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(51,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+  Generating code
+  1 of 1188 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  DirectX_Game_Engine.vcxproj -> C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\x64\Release\DirectX_Game_Engine.exe

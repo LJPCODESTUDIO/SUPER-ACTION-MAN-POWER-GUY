@@ -34,17 +34,11 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{4366bc57-d96e-4e93-ab24-ef552b336e05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Backend\Images">
-      <UniqueIdentifier>{53802837-deef-4e69-a7e5-985414bab1cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Backend\Gui">
       <UniqueIdentifier>{4a1594ed-0209-46a5-9849-c13a5752791c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Backend\Gui">
       <UniqueIdentifier>{7e7f3c18-7aed-47f2-b24f-96b9e153d7cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Backend\Images">
-      <UniqueIdentifier>{b3253dbb-38d8-4011-93e2-de8f2176ba5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,12 +72,6 @@
     <ClInclude Include="Gui.h">
       <Filter>Header Files\Backend\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Header Files\Backend\Images</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files\Backend\Images</Filter>
-    </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Backend\DirectX</Filter>
     </ClInclude>
@@ -92,6 +80,15 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\Backend\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files\Backend\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="RBG_Data.h">
+      <Filter>Header Files\Backend\Gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,17 +113,20 @@
     <ClCompile Include="EntryPoint.cpp">
       <Filter>Source Files\Backend\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Source Files\Backend\Images</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Backend\Images</Filter>
-    </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Backend\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Backend\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files\Backend\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="RGB_Data.cpp">
+      <Filter>Source Files\Backend\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

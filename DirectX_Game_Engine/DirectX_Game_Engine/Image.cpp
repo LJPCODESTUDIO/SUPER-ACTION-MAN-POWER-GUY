@@ -1,7 +1,7 @@
 #include <fstream>
 #include "Image.h"
 
-Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, uint8_t _images_per_row, uint8_t _total_rows) {
+Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, uint8_t _images_per_row, uint8_t _total_rows) : RGB_Data() {
 
 	if (_filename.find(".bmp") == _filename.length() - 4 || _filename.find(".BMP") == _filename.length() - 4) {
 
@@ -17,24 +17,22 @@ Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, 
 
 			if (bmInfoHeader.biBitCount == 24 && bmInfoHeader.biCompression == BI_RGB) {
 
-				total_elem_count = _images_per_row * _total_rows;
-				width = (uint16_t)(bmInfoHeader.biWidth / _images_per_row);
-				height = (uint16_t)(bmInfoHeader.biHeight / _total_rows);
+				uint8_t total_elem_count = _images_per_row * _total_rows;
 
-				rgb = new uint8_t * *[total_elem_count];
-				for (uint16_t i = 0; i < total_elem_count; i++) {
-					rgb[i] = new uint8_t * [width * height];
-					for (uint32_t j = 0; j < (width * height); j++) {
-						rgb[i][j] = new uint8_t[4];
-						for (uint8_t a = 0; a < 4; a++) { rgb[i][j][a] = 0; }
-					}
-				}
+				uint16_t width_compensation_pixels = 0, temp_width = bmInfoHeader.biWidth;
+				while ((temp_width % _images_per_row) != 0) { temp_width--;  width_compensation_pixels++; }
+				uint16_t width = (uint16_t)(temp_width / _images_per_row);
+
+				uint16_t height = (uint16_t)(bmInfoHeader.biHeight / _total_rows);
+
+				set_RGB_Data(total_elem_count, width, height);
 
 				uint16_t rgb_x, rgb_y;
 				uint16_t bmp_item_elem = 0, rgb_elem = 0, items_before_target_item = 0, items_after_target_item = 0, row_start = 0;
 				uint8_t temp_file_rgb[3] = { 0,0,0 };
 				uint16_t line_padding_bytes = ((4 - (bmInfoHeader.biWidth * 3) % 4) % 4);
-				uint16_t line_item_bytes = (3 * width);
+				uint16_t line_item_bytes = 3 * width;
+				uint16_t width_compensation_bytes = 3 * width_compensation_pixels;
 
 				for (uint8_t bmp_y = _total_rows; bmp_y > 0; bmp_y--) {
 					for (uint8_t bmp_x = 0; bmp_x < _images_per_row; bmp_x++) {
@@ -46,7 +44,7 @@ Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, 
 						row_start = (uint16_t)(bmp_item_elem / _images_per_row);
 
 						file.seekg(0, file.beg);
-						file.seekg(bmFileHeader.bfOffBits + (row_start * height * (line_item_bytes * (items_before_target_item + 1 + items_after_target_item) + line_padding_bytes) + (items_before_target_item * line_item_bytes)), std::ios::cur);
+						file.seekg(bmFileHeader.bfOffBits + (row_start * height * (line_item_bytes * (items_before_target_item + 1 + items_after_target_item) + width_compensation_bytes + line_padding_bytes) + (items_before_target_item * line_item_bytes)), std::ios::cur);
 
 						rgb_y = height;
 
@@ -69,7 +67,7 @@ Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, 
 								}
 								rgb_x++;
 							}
-							file.seekg((items_after_target_item * line_item_bytes) + line_padding_bytes + (items_before_target_item * line_item_bytes), std::ios::cur);
+							file.seekg((items_after_target_item * line_item_bytes) + width_compensation_bytes + line_padding_bytes + (items_before_target_item * line_item_bytes), std::ios::cur);
 						}
 						rgb_elem++;
 					}
@@ -81,7 +79,7 @@ Image::Image(std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, 
 	}
 }
 
-Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, uint8_t _images_per_row, uint8_t _total_rows, uint8_t _widthwise_regions, uint8_t _heightwise_regions) {
+Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, uint8_t* _image_rgb, uint8_t _images_per_row, uint8_t _total_rows, uint8_t _widthwise_regions, uint8_t _heightwise_regions) : RGB_Data() {
 
 	if (_filename.find(".bmp") == _filename.length() - 4 || _filename.find(".BMP") == _filename.length() - 4) {
 
@@ -98,23 +96,21 @@ Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, u
 			if (bmInfoHeader.biBitCount == 24 && bmInfoHeader.biCompression == BI_RGB) {
 
 				total_elem_count = _images_per_row * _total_rows;
-				width = (uint16_t)(bmInfoHeader.biWidth / _images_per_row);
+
+				uint16_t width_compensation_pixels = 0, temp_width = bmInfoHeader.biWidth;
+				while ((temp_width % _images_per_row) != 0) { temp_width--;  width_compensation_pixels++; }
+				uint16_t width = (uint16_t)(temp_width / _images_per_row);
+
 				height = (uint16_t)(bmInfoHeader.biHeight / _total_rows);
 
-				rgb = new uint8_t * *[total_elem_count];
-				for (uint16_t i = 0; i < total_elem_count; i++) {
-					rgb[i] = new uint8_t * [width * height];
-					for (uint32_t j = 0; j < (width * height); j++) {
-						rgb[i][j] = new uint8_t[4];
-						for (uint8_t a = 0; a < 4; a++) { rgb[i][j][a] = 0; }
-					}
-				}
+				set_RGB_Data(total_elem_count, width, height, false);
 
 				uint16_t rgb_x, rgb_y;
-				uint16_t bmp_item_elem = 0, rgb_elem = 0, items_before_target_item = 0, items_after_target_item = 0, row_start = 0;
+				uint16_t bmp_item_elem = 0, rgb_elem = 1, items_before_target_item = 0, items_after_target_item = 0, row_start = 0;
 				uint8_t temp_file_rgb[3] = { 0,0,0 };
 				uint16_t line_padding_bytes = ((4 - (bmInfoHeader.biWidth * 3) % 4) % 4);
-				uint16_t line_item_bytes = (3 * width);
+				uint16_t line_item_bytes = 3 * width;
+				uint16_t width_compensation_bytes = 3 * width_compensation_pixels;
 
 				for (uint8_t bmp_y = _total_rows; bmp_y > 0; bmp_y--) {
 					for (uint8_t bmp_x = 0; bmp_x < _images_per_row; bmp_x++) {
@@ -126,7 +122,7 @@ Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, u
 						row_start = (uint16_t)(bmp_item_elem / _images_per_row);
 
 						file.seekg(0, file.beg);
-						file.seekg(bmFileHeader.bfOffBits + (row_start * height * (line_item_bytes * (items_before_target_item + 1 + items_after_target_item) + line_padding_bytes) + (items_before_target_item * line_item_bytes)), std::ios::cur);
+						file.seekg(bmFileHeader.bfOffBits + (row_start * height * (line_item_bytes * (items_before_target_item + 1 + items_after_target_item) + width_compensation_bytes + line_padding_bytes) + (items_before_target_item * line_item_bytes)), std::ios::cur);
 
 						rgb_y = height;
 
@@ -153,7 +149,7 @@ Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, u
 								}
 								rgb_x++;
 							}
-							file.seekg((items_after_target_item * line_item_bytes) + line_padding_bytes + (items_before_target_item * line_item_bytes), std::ios::cur);
+							file.seekg((items_after_target_item * line_item_bytes) + width_compensation_bytes + line_padding_bytes + (items_before_target_item * line_item_bytes), std::ios::cur);
 						}
 						rgb_elem++;
 					}
@@ -163,13 +159,6 @@ Image::Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb, u
 		}
 		else exit(1);
 	}
-}
-
-Image::~Image() {
-	for (uint16_t i = 0; i < total_elem_count; i++) {
-		for (uint32_t j = 0; j < (width * height); j++) { delete[] rgb[i][j]; rgb[i][j] = nullptr; }
-		delete[] rgb[i]; rgb[i] = nullptr;
-	} delete[] rgb; rgb = nullptr;
 }
 
 Image& Image::operator[](uint8_t _elem) { elem = _elem; return *this; }

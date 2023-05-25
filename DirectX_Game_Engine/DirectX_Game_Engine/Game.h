@@ -5,6 +5,7 @@
 #include "Image.h"
 #include "Sprite.h"
 #include <time.h>
+#include <cmath>
 
 class Game {
 private:
@@ -24,14 +25,14 @@ private:
 	uint8_t green[3] = { 186, 254, 202 };
 	uint8_t green_screen[3] = { 0,10,0 };
 
-	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
 	Image funky_chars = Image("Images/funky_chars.bmp", white, red, 15, 8);
 	Image chars_small = Image("Images/chars.bmp", white, white, 32, 3);
+	Image arrow = Image("Images/Arrow.bmp", nullptr, nullptr, 4, 2);
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
-	
+	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
@@ -44,8 +45,10 @@ private:
 	int high_low_fps[2] = { 60,60 };
 	int player_pos[2] = { 512, 450 };
 	int player_image = 0;
-
+	int arrow_image = 0;
+	float player_dir = 0;
 	float game_time;
+	float cooldown_time = -5;
 	float track_time = 0;
 	float tick_60 = 0;
 	float delta;
@@ -56,7 +59,7 @@ private:
 
 	void check_time_and_fps(float last_tick_60);
 
-	void keyboard_key_press();
+	void key_press();
 
 public:
 	Game(class MainWindow& _app_window);

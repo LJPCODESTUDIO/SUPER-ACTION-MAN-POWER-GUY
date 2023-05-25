@@ -8,7 +8,7 @@ Sprite::Sprite(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb,
 	total_regions = _widthwise_regions * _heightwise_regions;
 }
 
-Sprite& Sprite::operator[](uint8_t _elem) { elem = _elem; return *this; }
+Sprite& Sprite::operator[](uint8_t _elem) { elem = _elem + 1; return *this; }
 
 void Sprite::set_RGB_on_SpriteRegion(uint8_t _region_id, uint8_t* _rgb) {
 	for (uint32_t i = 0; i < height * width; i++) {

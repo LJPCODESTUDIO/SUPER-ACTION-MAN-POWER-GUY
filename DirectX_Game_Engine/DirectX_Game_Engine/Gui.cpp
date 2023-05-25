@@ -15,18 +15,18 @@ Gui::Gui(class MainWindow& _app_window) : app_window(_app_window), gfx_ops(_app_
 	SubGui_count[1][0] = 2; // second gui total sub-guis
 	SubGui_count[2][0] = 1; // second gui total sub-guis
 
-    //                                           0    1  2     3     4    5     6   7   8 
-	uint16_t first_gui__first_SubGui[9] = {      0,   0, 1200, 900,  15,  11,   0,  0,  0};
+	//                                           0    1  2     3     4    5     6   7   8 
+	uint16_t first_gui__first_SubGui[9] = { 0,   0, 1200, 900,  15,  11,   0,  0,  0 };
 
-	uint16_t second_gui__first_SubGui[9] = {     0,   0, 900,  900,  8,   8,    4,  4,  3};
-	uint16_t second_gui__second_SubGui[9] = {    900, 0, 1200, 900,  12,  37,   5,  5,  1};
+	uint16_t second_gui__first_SubGui[9] = { 0,   0, 900,  900,  8,   8,    4,  4,  3 };
+	uint16_t second_gui__second_SubGui[9] = { 900, 0, 1200, 900,  12,  37,   5,  5,  1 };
 
-	uint16_t third_gui__first_SubGui[9] = {      0,   0, 1200, 900,  63,  47,   1,  4,  1};
+	uint16_t third_gui__first_SubGui[9] = { 0,   0, 1200, 900,  63,  47,   1,  4,  1 };
 
-	SubGui_data = new uint16_t** [total_gui_count];
+	SubGui_data = new uint16_t * *[total_gui_count];
 	for (uint8_t g = 0; g < total_gui_count; g++) {
-		SubGui_data[g] = new uint16_t* [SubGui_count[g][0]];
-		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) { 
+		SubGui_data[g] = new uint16_t * [SubGui_count[g][0]];
+		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) {
 			SubGui_data[g][i] = new uint16_t[10];
 
 			if (g == 0 && i == 0) for (uint8_t a = 0; a < 9; a++) { SubGui_data[g][i][a] = first_gui__first_SubGui[a]; }
@@ -38,11 +38,11 @@ Gui::Gui(class MainWindow& _app_window) : app_window(_app_window), gfx_ops(_app_
 
 	//*********************************************************************************************************************************************//
 
-	GuiRegion_data = new uint16_t*** [total_gui_count];
+	GuiRegion_data = new uint16_t * **[total_gui_count];
 	for (uint8_t g = 0; g < total_gui_count; g++) {
-		GuiRegion_data[g] = new uint16_t** [SubGui_count[g][0]];
+		GuiRegion_data[g] = new uint16_t * *[SubGui_count[g][0]];
 		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) {
-			GuiRegion_data[g][i] = new uint16_t*[SubGui_data[g][i][4] * SubGui_data[g][i][5]];
+			GuiRegion_data[g][i] = new uint16_t * [SubGui_data[g][i][4] * SubGui_data[g][i][5]];
 			for (uint32_t j = 0; j < (SubGui_data[g][i][4] * SubGui_data[g][i][5]); j++) {
 				GuiRegion_data[g][i][j] = new uint16_t[4];
 				for (uint8_t a = 0; a < 4; a++) { GuiRegion_data[g][i][j][a] = 0; }
@@ -50,12 +50,12 @@ Gui::Gui(class MainWindow& _app_window) : app_window(_app_window), gfx_ops(_app_
 		}
 	}
 
-	GuiSurface = new uint8_t**[total_gui_count];
+	GuiSurface = new uint8_t * *[total_gui_count];
 	for (uint8_t g = 0; g < total_gui_count; g++) {
-		GuiSurface[g] = new uint8_t* [gfx_ops.ScreenWidth * gfx_ops.ScreenHeight];
-		for (uint32_t i = 0; i < (gfx_ops.ScreenWidth * gfx_ops.ScreenHeight); i++) { 
+		GuiSurface[g] = new uint8_t * [gfx_ops.ScreenWidth * gfx_ops.ScreenHeight];
+		for (uint32_t i = 0; i < (gfx_ops.ScreenWidth * gfx_ops.ScreenHeight); i++) {
 			GuiSurface[g][i] = new uint8_t[10];
-			for (uint8_t a = 0; a < 10; a++) { GuiSurface[g][i][a] = 0; }                 
+			for (uint8_t a = 0; a < 10; a++) { GuiSurface[g][i][a] = 0; }
 		}
 	}
 
@@ -86,15 +86,15 @@ Gui::Gui(class MainWindow& _app_window) : app_window(_app_window), gfx_ops(_app_
 Gui::~Gui() {
 	for (uint8_t g = 0; g < total_gui_count; g++) {
 		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) {
-			for (uint32_t k = 0; k < (SubGui_data[g][i][4] * SubGui_data[g][i][5]); k++) { 
-				delete[] GuiRegion_data[g][i][k]; GuiRegion_data[g][i][k] = nullptr; 
+			for (uint32_t k = 0; k < (SubGui_data[g][i][4] * SubGui_data[g][i][5]); k++) {
+				delete[] GuiRegion_data[g][i][k]; GuiRegion_data[g][i][k] = nullptr;
 			} delete[] GuiRegion_data[g][i]; GuiRegion_data[g][i] = nullptr;
 		} delete[] GuiRegion_data[g]; GuiRegion_data[g] = nullptr;
 	} delete[] GuiRegion_data; GuiRegion_data = nullptr;
 
 	for (uint8_t g = 0; g < total_gui_count; g++) {
-		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) { 
-			delete[] SubGui_data[g][i]; 
+		for (uint8_t i = 0; i < SubGui_count[g][0]; i++) {
+			delete[] SubGui_data[g][i];
 			SubGui_data[g][i] = nullptr;
 		} delete[] SubGui_data[g]; SubGui_data[g] = nullptr;
 	} delete[] SubGui_data; SubGui_data = nullptr;
@@ -219,7 +219,7 @@ void Gui::set_Image_at_Pixel(uint16_t _surface_x, uint16_t _surface_y, Image& _i
 	if (_origin == "nw") {
 		for (uint16_t y = 0; y < _image.height; y++) {
 			for (uint16_t x = 0; x < _image.width; x++) {
-				if (_surface_y < gfx_ops.ScreenHeight && _surface_x < gfx_ops.ScreenWidth&& _image.rgb[_image.elem][y * _image.width + x][0]) {
+				if (_surface_y < gfx_ops.ScreenHeight && _surface_x < gfx_ops.ScreenWidth && _image.rgb[_image.elem][y * _image.width + x][0]) {
 					for (uint8_t a = 0; a < 3; a++) { GuiSurface[gui_elem][(_surface_y * gfx_ops.ScreenWidth + _surface_x)][a] = _image.rgb[_image.elem][y * _image.width + x][a + 1]; }
 				}
 				_surface_x++;
@@ -350,7 +350,7 @@ void Gui::set_Sprite_Off(Sprite& _sprite) {
 	for (uint32_t k = 0; k < (gfx_ops.ScreenWidth * gfx_ops.ScreenHeight); k++) {
 		if (GuiSurface[gui_elem][k][6] >= _sprite.id && GuiSurface[gui_elem][k][6] <= (_sprite.id + _sprite.total_regions - 1)) {
 			GuiSurface[gui_elem][k][6] = 0;
-			for (uint8_t a = 0; a < 3; a++) { GuiSurface[gui_elem][k][a] = GuiSurface[gui_elem][k][a + 7];}
+			for (uint8_t a = 0; a < 3; a++) { GuiSurface[gui_elem][k][a] = GuiSurface[gui_elem][k][a + 7]; }
 		}
 	}
 }
@@ -364,7 +364,7 @@ void Gui::set_CollissionMap_Data_at_GuiRegion(uint16_t _GuiRegion_elem, uint8_t 
 	}
 }
 
-void Gui::set_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface_y, uint8_t _id, bool _write_to_file) { 
+void Gui::set_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface_y, uint8_t _id, bool _write_to_file) {
 	GuiSurface[gui_elem][_surface_y * gfx_ops.ScreenWidth + _surface_x][6] = _id;
 
 	if (_write_to_file) {
@@ -379,7 +379,7 @@ void Gui::set_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface
 }
 
 uint8_t Gui::get_CollissionMap_Data_at_GuiRegion(uint16_t _GuiRegion_elem) {
-	for (uint16_t  _surface_y = GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][2]; _surface_y <= GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][3]; _surface_y++) {
+	for (uint16_t _surface_y = GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][2]; _surface_y <= GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][3]; _surface_y++) {
 		for (uint16_t _surface_x = GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][0]; _surface_x <= GuiRegion_data[gui_elem][SubGui_elem][_GuiRegion_elem][1]; _surface_x++) {
 			if (GuiSurface[gui_elem][_surface_y * gfx_ops.ScreenWidth + _surface_x][6] > 0) return GuiSurface[gui_elem][_surface_y * gfx_ops.ScreenWidth + _surface_x][6];
 		}
@@ -387,7 +387,7 @@ uint8_t Gui::get_CollissionMap_Data_at_GuiRegion(uint16_t _GuiRegion_elem) {
 	return 0;
 }
 
-uint8_t Gui::get_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface_y) { return GuiSurface[gui_elem][_surface_y*gfx_ops.ScreenWidth+ _surface_x][6]; }
+uint8_t Gui::get_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface_y) { return GuiSurface[gui_elem][_surface_y * gfx_ops.ScreenWidth + _surface_x][6]; }
 
 
 void Gui::save_GuiRegion(uint16_t _GuiRegion_elem, bool _include_GuiRegion_spacing) {
@@ -422,7 +422,7 @@ void Gui::load_GuiRegion(uint16_t _source_GuiRegion_elem, bool _include_GuiRegio
 }
 
 
-void Gui::save_Pixel(uint16_t _surface_x, uint16_t _surface_y){
+void Gui::save_Pixel(uint16_t _surface_x, uint16_t _surface_y) {
 	for (uint8_t a = 0; a < 3; a++) { GuiSurface[gui_elem][(_surface_y * gfx_ops.ScreenWidth + _surface_x)][a + 3] = GuiSurface[gui_elem][(_surface_y * gfx_ops.ScreenWidth + _surface_x)][a]; }
 }
 
@@ -430,6 +430,7 @@ void Gui::load_Pixel(uint16_t _source_surface_x, uint16_t _source_surface_y, int
 	if (_target_surface_x < 0) _target_surface_x = _source_surface_x;
 	if (_target_surface_y < 0) _target_surface_y = _source_surface_y;
 
-	for (uint8_t a = 0; a < 3; a++) { 
-		GuiSurface[gui_elem][(_target_surface_y * gfx_ops.ScreenWidth + _target_surface_x)][a] = GuiSurface[gui_elem][(_source_surface_y * gfx_ops.ScreenWidth + _source_surface_x)][a + 3]; }
+	for (uint8_t a = 0; a < 3; a++) {
+		GuiSurface[gui_elem][(_target_surface_y * gfx_ops.ScreenWidth + _target_surface_x)][a] = GuiSurface[gui_elem][(_source_surface_y * gfx_ops.ScreenWidth + _source_surface_x)][a + 3];
+	}
 }

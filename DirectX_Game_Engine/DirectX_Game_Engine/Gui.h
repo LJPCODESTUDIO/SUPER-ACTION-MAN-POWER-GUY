@@ -29,7 +29,7 @@ public:
 
 	//Initialization and memory allocation
 	Gui(class MainWindow& _app_window);
-	
+
 	//Memory de-allocation
 	~Gui();
 
@@ -57,7 +57,7 @@ public:
 	int16_t get_Mouse_Pos_at_GuiRegion();
 
 
-	
+
 	//Sets Gui color
 	void set_RGB_on_Gui(uint8_t* _rgb);
 
@@ -92,7 +92,7 @@ public:
 
 	//Set Image using Pixel addressing (see default param)
 	void set_Image_at_Pixel(uint16_t _surface_x, uint16_t _surface_y, Image& _image, std::string _origin = "nw");
-	
+
 
 
 	//Sets Sprite on within a Gui
@@ -112,7 +112,7 @@ public:
 
 	//Turns sprite off
 	void set_Sprite_Off(Sprite& _sprite);
-	
+
 
 
 	//Sets Collision Map data using Gui-Region addressing
@@ -128,7 +128,7 @@ public:
 	//Gets Collision Map data using Pixel addressing
 	uint8_t get_CollissionMap_Data_at_Pixel(uint16_t _surface_x, uint16_t _surface_y);
 
-	
+
 
 	//Saves specified Gui-Region
 	void save_GuiRegion(uint16_t _GuiRegion_elem, bool _include_GuiRegion_spacing = false);

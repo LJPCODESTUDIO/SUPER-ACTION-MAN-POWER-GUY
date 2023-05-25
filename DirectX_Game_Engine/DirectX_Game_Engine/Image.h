@@ -7,20 +7,12 @@
 #include "Windows.h"
 #include <stdint.h>
 #include <string>
+#include "RBG_Data.h"
 
-class Image {
-private:
-	friend class Sprite;
-	friend class Gui;
-	uint8_t total_elem_count = 0;
-	uint16_t width = 0, height = 0;
-	uint8_t elem = 0;
-	uint8_t*** rgb = nullptr;
-
+class Image : public RGB_Data {
 public:
 	Image(std::string _filename, uint8_t* _outline_rgb = nullptr, uint8_t* _image_rgb = nullptr, uint8_t _images_per_row = 1, uint8_t _total_rows = 1);
 	Image(uint8_t _sprite_id, std::string _filename, uint8_t* _outline_rgb = nullptr, uint8_t* _image_rgb = nullptr, uint8_t _images_per_row = 1, uint8_t _total_rows = 1, uint8_t _widthwise_regions = 1, uint8_t _heightwise_regions = 1);
-	~Image();
 
 	Image& operator[](uint8_t _elem);
 

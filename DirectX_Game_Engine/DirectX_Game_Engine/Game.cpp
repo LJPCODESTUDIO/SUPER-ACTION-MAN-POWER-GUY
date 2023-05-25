@@ -25,14 +25,17 @@ void Game::game_loop() {
 	gui.set_RGB_on_Gui(black);
 
 	player_image = 0;
-	keyboard_key_press();
+	key_press();
 
+	gui.set_Image_at_Pixel(player_pos[0]-8, player_pos[1]-8, arrow[arrow_image]);
 	gui.set_Image_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
 
 	write("Score: 0", 0, 0, "chars_small");
 	write("Time: " + std::to_string(game_time), 0, 25, "chars_small");
 	write("FPS: " + std::to_string(fps) + " High: " + std::to_string(high_low_fps[0]) + " Low: " + std::to_string(high_low_fps[1]), 0, 50, "chars_small");
 	write("Pos: " + std::to_string(player_pos[0]) + "," + std::to_string(player_pos[1]), 0, 75, "chars_small");
+	write("Dash Timer: " + std::to_string(cooldown_time), 0, 100, "chars_small");
+	write("Direction: " + std::to_string(player_dir), 0, 125, "chars_small");
 
 	gui.refresh_Gui();
 
@@ -86,11 +89,17 @@ void Game::check_time_and_fps(float last_tick_60) {
 	}
 }
 
-void Game::keyboard_key_press() {
+void Game::key_press() {
 	if (gui.get_Gui_Elem() == 1) {
 		int dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
 		int dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
-		int dash = window.kbd.KeyIsPressed(VK_SPACE) * 10;
+		int dash = 0;
+		if (game_time - cooldown_time >= 5 && window.kbd.KeyIsPressed(VK_SPACE)) {
+			cooldown_time = game_time;
+		}
+		if (game_time - cooldown_time < .5) {
+			dash = 10;
+		}
 		player_pos[0] += dir_x * (7 + dash);
 		player_pos[1] += dir_y * (7 + dash);
 		if (player_pos[0] >= 995) {
@@ -104,6 +113,38 @@ void Game::keyboard_key_press() {
 		}
 		if (player_pos[1] <= 0) {
 			player_pos[1] += 7 + dash;
+		}
+
+		float x = window.mouse.GetPosX() - player_pos[0];
+		float y = window.mouse.GetPosY() - player_pos[1];
+		if (x != 0) {
+			player_dir = atan2(y, x) * 180 / 3.14159;
+			player_dir *= -1;
+		}
+
+		if (player_dir <= 22 && player_dir >= -22) {
+			arrow_image = 0;
+		}
+		else if (player_dir > 22 && player_dir < 68) {
+			arrow_image = 4;
+		}
+		else if (player_dir >= 68 && player_dir <= 112) {
+			arrow_image = 3;
+		}
+		else if (player_dir > 112 && player_dir < 158) {
+			arrow_image = 7;
+		}
+		else if (player_dir >= 158 && player_dir >= -158) {
+			arrow_image = 2;
+		}
+		else if (player_dir > -158 && player_dir < -112) {
+			arrow_image = 6;
+		}
+		else if (player_dir >= -112 && player_dir <= -68) {
+			arrow_image = 1;
+		}
+		else if (player_dir > -68 && player_dir <= -2) {
+			arrow_image = 5;
 		}
 	}
 }

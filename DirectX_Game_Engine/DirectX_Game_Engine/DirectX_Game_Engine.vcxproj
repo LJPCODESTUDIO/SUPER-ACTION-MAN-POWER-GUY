@@ -152,6 +152,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="RBG_Data.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Keyboard.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="RGB_Data.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>

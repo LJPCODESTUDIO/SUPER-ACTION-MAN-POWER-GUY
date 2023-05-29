@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include <time.h>
 #include <cmath>
+#include "Enemy.h"
 
 class Game {
 private:
@@ -36,8 +37,11 @@ private:
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
+	Enemy* enemy_array;
+
 	bool start = true;
 	bool initial = true;
+	bool debug = false;
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;
@@ -46,6 +50,8 @@ private:
 	int player_pos[2] = { 512, 450 };
 	int player_image = 0;
 	int arrow_image = 0;
+	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
+
 	float player_dir = 0;
 	float game_time;
 	float cooldown_time = -5;

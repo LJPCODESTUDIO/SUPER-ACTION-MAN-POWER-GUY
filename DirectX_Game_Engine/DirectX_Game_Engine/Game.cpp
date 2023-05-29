@@ -1,9 +1,14 @@
 #include "MainWindow.h"
 #include "Game.h"
+#include <stdlib.h>
 #include <chrono>
 #include <thread>
 
-Game::Game(MainWindow& _window) : window(_window), gui(_window) {}
+Game::Game(MainWindow& _window) 
+	: window(_window), gui(_window) 
+{
+	enemy_array = new Enemy[1];
+}
 
 void Game::game_loop() {
 	if (initial) {
@@ -20,6 +25,7 @@ void Game::game_loop() {
 		start_game();
 		return;
 	}
+	srand(game_time / time(NULL));
 
 	gui.set_Target_SubGui(1, 0);
 	gui.set_RGB_on_Gui(black);
@@ -28,14 +34,18 @@ void Game::game_loop() {
 	key_press();
 
 	gui.set_Image_at_Pixel(player_pos[0]-8, player_pos[1]-8, arrow[arrow_image]);
-	gui.set_Image_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
 
-	write("Score: 0", 0, 0, "chars_small");
-	write("Time: " + std::to_string(game_time), 0, 25, "chars_small");
-	write("FPS: " + std::to_string(fps) + " High: " + std::to_string(high_low_fps[0]) + " Low: " + std::to_string(high_low_fps[1]), 0, 50, "chars_small");
-	write("Pos: " + std::to_string(player_pos[0]) + "," + std::to_string(player_pos[1]), 0, 75, "chars_small");
-	write("Dash Timer: " + std::to_string(cooldown_time), 0, 100, "chars_small");
-	write("Direction: " + std::to_string(player_dir), 0, 125, "chars_small");
+	gui.set_Sprite_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
+
+	write("Score: 0", (WIDTH/2)-60, 0, "chars_small");
+	write("Time: " + std::to_string(game_time), (WIDTH / 2) - (15 * (3+(std::to_string(game_time).length()/2))), 25, "chars_small");
+	write("HP: " + std::to_string(player_hp[0]) + "/" + std::to_string(player_hp[1]), (WIDTH / 2) - (15 * (2 + ((std::to_string(player_hp[0]).length() + std::to_string(player_hp[1]).length()) / 2))), 50, "chars_small");
+
+	if (debug) {
+		write("FPS: " + std::to_string(fps) + " High: " + std::to_string(high_low_fps[0]) + " Low: " + std::to_string(high_low_fps[1]), 0, 0, "chars_small");
+		write("Pos: " + std::to_string(player_pos[0]) + "," + std::to_string(player_pos[1]), 0, 25, "chars_small");
+		write("Direction: " + std::to_string(player_dir), 0, 50, "chars_small");
+	}
 
 	gui.refresh_Gui();
 
@@ -91,6 +101,7 @@ void Game::check_time_and_fps(float last_tick_60) {
 
 void Game::key_press() {
 	if (gui.get_Gui_Elem() == 1) {
+		// Player stuff
 		int dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
 		int dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
 		int dash = 0;
@@ -100,6 +111,14 @@ void Game::key_press() {
 		if (game_time - cooldown_time < .5) {
 			dash = 10;
 		}
+
+		if (dir_x > 0) {
+			player_image = 2;
+		}
+		else if (dir_x < 0) {
+			player_image = 1;
+		}
+
 		player_pos[0] += dir_x * (7 + dash);
 		player_pos[1] += dir_y * (7 + dash);
 		if (player_pos[0] >= 995) {
@@ -145,6 +164,10 @@ void Game::key_press() {
 		}
 		else if (player_dir > -68 && player_dir <= -2) {
 			arrow_image = 5;
+		}
+
+		if (window.kbd.KeyIsPressed(VK_F2)) {
+			debug = !debug;
 		}
 	}
 }

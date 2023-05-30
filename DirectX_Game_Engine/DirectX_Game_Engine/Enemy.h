@@ -18,14 +18,22 @@ private:
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
 	uint8_t green[3] = { 186, 254, 202 };
-	uint8_t green_screen[3] = { 0,10,0 };
+	uint8_t green_screen[3] = { 10,10,10 };
 
 public:
-	int hp = 1;
-	int type = 0;
-	int pos[2] = { 0,0 };
+	int hp = NULL;
+	int type = NULL;
+	int pos[2] = { NULL,NULL };
+	int id = NULL;
 
-	std::string sprite_image = "";
+	bool init = true;
+
+	int sprite_image = 0;
+
+	Sprite entity = Sprite(rand()+4, "Images/Enemy.bmp", green_screen);
 
 	Enemy();
+	~Enemy();
+
+	void _init_(int _type, int _hp, int _id, int _image, int _start_x, int _start_y);
 };

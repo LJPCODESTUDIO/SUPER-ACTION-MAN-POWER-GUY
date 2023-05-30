@@ -4,11 +4,7 @@
 #include <chrono>
 #include <thread>
 
-Game::Game(MainWindow& _window) 
-	: window(_window), gui(_window) 
-{
-	enemy_array = new Enemy[1];
-}
+Game::Game(MainWindow& _window) : window(_window), gui(_window) {}
 
 void Game::game_loop() {
 	if (initial) {
@@ -17,6 +13,7 @@ void Game::game_loop() {
 		track_1.Play();
 	}
 	check_time_and_fps(tick_60);
+	srand(game_time / time(NULL));
 	if (game_time - track_time >= 192) {
 		track_time = game_time;
 		track_1.Play();
@@ -25,13 +22,16 @@ void Game::game_loop() {
 		start_game();
 		return;
 	}
-	srand(game_time / time(NULL));
 
 	gui.set_Target_SubGui(1, 0);
 	gui.set_RGB_on_Gui(black);
 
 	player_image = 0;
 	key_press();
+
+	for (int i = 0; i < enemys; i++) {
+		gui.set_Sprite_at_Pixel(enemy_array[i].pos[0], enemy_array[i].pos[1], enemy_array[i].entity);
+	}
 
 	gui.set_Image_at_Pixel(player_pos[0]-8, player_pos[1]-8, arrow[arrow_image]);
 
@@ -45,6 +45,9 @@ void Game::game_loop() {
 		write("FPS: " + std::to_string(fps) + " High: " + std::to_string(high_low_fps[0]) + " Low: " + std::to_string(high_low_fps[1]), 0, 0, "chars_small");
 		write("Pos: " + std::to_string(player_pos[0]) + "," + std::to_string(player_pos[1]), 0, 25, "chars_small");
 		write("Direction: " + std::to_string(player_dir), 0, 50, "chars_small");
+		for (int i = 0; i < enemys; i++) {
+			write("Enemy" + std::to_string(i) + ": " + std::to_string(enemy_array[i].type), 0, 75 + (i * 25), "chars_small");
+		}
 	}
 
 	gui.refresh_Gui();
@@ -65,6 +68,10 @@ void Game::start_game() {
 	
 	if (window.mouse.LeftIsPressed()) {
 		if (gui.get_CollissionMap_Data_at_GuiRegion(gui.get_Mouse_Pos_at_GuiRegion()) == 1) {
+			enemys = rand() % 10 + 1;
+			for (int i = 0; i < enemys; i++) {
+				enemy_array[i]._init_(0, 1, i + 3, 0, rand() / WIDTH + 10, rand() / HEIGHT + 10);
+			}
 			start = false;
 		}
 	}

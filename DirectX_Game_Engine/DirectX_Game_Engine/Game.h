@@ -24,11 +24,11 @@ private:
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
 	uint8_t green[3] = { 186, 254, 202 };
-	uint8_t green_screen[3] = { 0,10,0 };
+	uint8_t green_screen[3] = { 10,10,10 };
 
 	Image funky_chars = Image("Images/funky_chars.bmp", white, red, 15, 8);
 	Image chars_small = Image("Images/chars.bmp", white, white, 32, 3);
-	Image arrow = Image("Images/Arrow.bmp", nullptr, nullptr, 4, 2);
+	Image arrow = Image("Images/Arrow.bmp", green_screen, nullptr, 4, 2);
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
 
@@ -37,7 +37,7 @@ private:
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
-	Enemy* enemy_array;
+	Enemy enemy_array[100];
 
 	bool start = true;
 	bool initial = true;
@@ -51,6 +51,7 @@ private:
 	int player_image = 0;
 	int arrow_image = 0;
 	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
+	int enemys = 0; // Mostly just for testing, who knows if I'll keep this
 
 	float player_dir = 0;
 	float game_time;

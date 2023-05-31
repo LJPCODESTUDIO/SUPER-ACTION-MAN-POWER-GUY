@@ -37,7 +37,7 @@ private:
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
-	Enemy enemy_array[100];
+	Enemy enemy_arr[100];
 
 	bool start = true;
 	bool initial = true;
@@ -55,7 +55,9 @@ private:
 
 	float player_dir = 0;
 	float game_time;
-	float cooldown_time = -5;
+	float enemy_spawn_cd = 3;
+	float last_enemy_spawn = 0;
+	float damage_cooldown = 0;
 	float track_time = 0;
 	float tick_60 = 0;
 	float delta;
@@ -67,6 +69,8 @@ private:
 	void check_time_and_fps(float last_tick_60);
 
 	void key_press();
+
+	void spawn_enemy();
 
 public:
 	Game(class MainWindow& _app_window);

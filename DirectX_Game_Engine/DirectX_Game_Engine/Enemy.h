@@ -25,15 +25,18 @@ public:
 	int type = NULL;
 	int pos[2] = { NULL,NULL };
 	int id = NULL;
+	int sprite_image = 0;
 
 	bool init = true;
 
-	int sprite_image = 0;
+	std::string state = "";
 
 	Sprite entity = Sprite(rand()+4, "Images/Enemy.bmp", green_screen);
 
 	Enemy();
 	~Enemy();
 
-	void _init_(int _type, int _hp, int _id, int _image, int _start_x, int _start_y);
+	void spawn(int _type, int _hp, int _image, int _start_x, int _start_y);
+
+	void move(int player[]);
 };

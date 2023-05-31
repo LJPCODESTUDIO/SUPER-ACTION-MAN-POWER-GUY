@@ -11,9 +11,11 @@ void Game::game_loop() {
 		start_time = clock();
 		initial = false;
 		track_1.Play();
+		for (int i = 0; i < 100; i++) {
+			enemy_arr[i].id = i + 3;
+		}
 	}
-	check_time_and_fps(tick_60);
-	srand(game_time / time(NULL));
+	srand(rand());
 	if (game_time - track_time >= 192) {
 		track_time = game_time;
 		track_1.Play();
@@ -22,6 +24,12 @@ void Game::game_loop() {
 		start_game();
 		return;
 	}
+	check_time_and_fps(tick_60);
+
+	if (game_time - last_enemy_spawn >= enemy_spawn_cd) {
+		spawn_enemy();
+		last_enemy_spawn = game_time;
+	}
 
 	gui.set_Target_SubGui(1, 0);
 	gui.set_RGB_on_Gui(black);
@@ -29,8 +37,11 @@ void Game::game_loop() {
 	player_image = 0;
 	key_press();
 
-	for (int i = 0; i < enemys; i++) {
-		gui.set_Sprite_at_Pixel(enemy_array[i].pos[0], enemy_array[i].pos[1], enemy_array[i].entity);
+	for (int i = 0; i < 100; i++) {
+		if (enemy_arr[i].state != "") {
+			enemy_arr[i].move(player_pos);
+			gui.set_Sprite_at_Pixel(enemy_arr[i].pos[0], enemy_arr[i].pos[1], enemy_arr[i].entity);
+		}
 	}
 
 	gui.set_Image_at_Pixel(player_pos[0]-8, player_pos[1]-8, arrow[arrow_image]);
@@ -45,8 +56,10 @@ void Game::game_loop() {
 		write("FPS: " + std::to_string(fps) + " High: " + std::to_string(high_low_fps[0]) + " Low: " + std::to_string(high_low_fps[1]), 0, 0, "chars_small");
 		write("Pos: " + std::to_string(player_pos[0]) + "," + std::to_string(player_pos[1]), 0, 25, "chars_small");
 		write("Direction: " + std::to_string(player_dir), 0, 50, "chars_small");
-		for (int i = 0; i < enemys; i++) {
-			write("Enemy" + std::to_string(i) + ": " + std::to_string(enemy_array[i].type), 0, 75 + (i * 25), "chars_small");
+		for (int i = 0; i < 100; i++) {
+			if (enemy_arr[i].state != "") {
+				write("Enemy" + std::to_string(i) + ": " + std::to_string(enemy_arr[i].pos[1]) + "," + std::to_string(enemy_arr[i].pos[1]), 0, 75 + (i * 25), "chars_small");
+			}
 		}
 	}
 
@@ -68,10 +81,6 @@ void Game::start_game() {
 	
 	if (window.mouse.LeftIsPressed()) {
 		if (gui.get_CollissionMap_Data_at_GuiRegion(gui.get_Mouse_Pos_at_GuiRegion()) == 1) {
-			enemys = rand() % 10 + 1;
-			for (int i = 0; i < enemys; i++) {
-				enemy_array[i]._init_(0, 1, i + 3, 0, rand() / WIDTH + 10, rand() / HEIGHT + 10);
-			}
 			start = false;
 		}
 	}
@@ -109,15 +118,8 @@ void Game::check_time_and_fps(float last_tick_60) {
 void Game::key_press() {
 	if (gui.get_Gui_Elem() == 1) {
 		// Player stuff
-		int dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
-		int dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
-		int dash = 0;
-		if (game_time - cooldown_time >= 5 && window.kbd.KeyIsPressed(VK_SPACE)) {
-			cooldown_time = game_time;
-		}
-		if (game_time - cooldown_time < .5) {
-			dash = 10;
-		}
+		float dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
+		float dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
 
 		if (dir_x > 0) {
 			player_image = 2;
@@ -126,19 +128,26 @@ void Game::key_press() {
 			player_image = 1;
 		}
 
-		player_pos[0] += dir_x * (7 + dash);
-		player_pos[1] += dir_y * (7 + dash);
+		float hyp = sqrtf(dir_x * dir_x + dir_y * dir_y);
+		if (hyp != 0) {
+			dir_x /= hyp;
+			dir_y /= hyp;
+		}
+
+		player_pos[0] += round(dir_x * 7);
+		player_pos[1] += round(dir_y * 7);
+
 		if (player_pos[0] >= 995) {
-			player_pos[0] -= 7 + dash;
+			player_pos[0] -= 7;
 		}
 		if (player_pos[0] <= 0) {
-			player_pos[0] += 7 + dash;
+			player_pos[0] += 7;
 		}
 		if (player_pos[1] >= 870) {
-			player_pos[1] -= 7 + dash;
+			player_pos[1] -= 7;
 		}
 		if (player_pos[1] <= 0) {
-			player_pos[1] += 7 + dash;
+			player_pos[1] += 7;
 		}
 
 		float x = window.mouse.GetPosX() - player_pos[0];
@@ -175,6 +184,18 @@ void Game::key_press() {
 
 		if (window.kbd.KeyIsPressed(VK_F2)) {
 			debug = !debug;
+		}
+	}
+}
+
+void Game::spawn_enemy() {
+	int spawn_x = rand() % WIDTH;
+	int spawn_y = rand() % HEIGHT;
+
+	for (int i = 0; i < 100; i++) {
+		if (enemy_arr[i].state == "") {
+			enemy_arr[i].spawn(1, 1, 0, spawn_x, spawn_y);
+			break;
 		}
 	}
 }

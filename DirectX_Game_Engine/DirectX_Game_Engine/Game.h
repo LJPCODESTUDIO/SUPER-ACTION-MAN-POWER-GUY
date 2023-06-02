@@ -34,6 +34,7 @@ private:
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
 	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
+	Sprite sword = Sprite(3, "Images/Sword_Attack.bmp", green_screen, nullptr, 3, 8);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
@@ -50,6 +51,7 @@ private:
 	int player_pos[2] = { 512, 450 };
 	int player_image = 0;
 	int arrow_image = 0;
+	int attack_dir = 0;
 	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
 	int enemys = 0; // Mostly just for testing, who knows if I'll keep this
 
@@ -57,7 +59,9 @@ private:
 	float game_time;
 	float enemy_spawn_cd = 3;
 	float last_enemy_spawn = 0;
-	float damage_cooldown = 0;
+	float damage_cooldown = -1;
+	float attack_cooldown = -1;
+	float frame_time = -1;
 	float track_time = 0;
 	float tick_60 = 0;
 	float delta;
@@ -71,6 +75,8 @@ private:
 	void key_press();
 
 	void spawn_enemy();
+
+	void reset_collisions();
 
 public:
 	Game(class MainWindow& _app_window);

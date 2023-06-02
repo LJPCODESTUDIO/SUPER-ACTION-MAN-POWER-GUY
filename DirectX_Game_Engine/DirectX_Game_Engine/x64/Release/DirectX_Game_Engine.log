@@ -1,11 +1,12 @@
-﻿  Game.cpp
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(52,128): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(53,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(94,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(98,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+﻿  EntryPoint.cpp
+  Game.cpp
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(65,128): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(66,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(107,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\DirectX_Game_Engine\Game.cpp(111,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
   Generating code
-  4 of 1242 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  18 of 1256 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+    27 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   DirectX_Game_Engine.vcxproj -> C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\x64\Release\DirectX_Game_Engine.exe

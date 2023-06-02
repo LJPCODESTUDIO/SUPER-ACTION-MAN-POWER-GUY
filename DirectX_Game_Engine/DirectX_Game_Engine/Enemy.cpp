@@ -31,5 +31,18 @@ void Enemy::move(int player[]) {
 		}
 
 		pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
+
+		if (pos[0] >= 995) {
+			pos[0] -= 7;
+		}
+		if (pos[0] <= 0) {
+			pos[0] += 7;
+		}
+		if (pos[1] >= 870) {
+			pos[1] -= 7;
+		}
+		if (pos[1] <= 0) {
+			pos[1] += 7;
+		}
 	}
 }

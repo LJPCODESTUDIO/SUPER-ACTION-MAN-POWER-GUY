@@ -12,7 +12,7 @@ void Game::game_loop() {
 		initial = false;
 		track_1.Play();
 		for (int i = 0; i < 100; i++) {
-			enemy_arr[i].id = i + 3;
+			enemy_arr[i].id = i + 50;
 		}
 	}
 	srand(rand());
@@ -24,6 +24,7 @@ void Game::game_loop() {
 		start_game();
 		return;
 	}
+	reset_collisions();
 	check_time_and_fps(tick_60);
 
 	if (game_time - last_enemy_spawn >= enemy_spawn_cd) {
@@ -37,16 +38,28 @@ void Game::game_loop() {
 	player_image = 0;
 	key_press();
 
+	gui.set_Image_at_Pixel(player_pos[0] - 8, player_pos[1] - 8, arrow[arrow_image]);
+	gui.set_Sprite_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
+
 	for (int i = 0; i < 100; i++) {
 		if (enemy_arr[i].state != "") {
 			enemy_arr[i].move(player_pos);
 			gui.set_Sprite_at_Pixel(enemy_arr[i].pos[0], enemy_arr[i].pos[1], enemy_arr[i].entity);
+			for (int x = 0; x < 32; x++) {
+				for (int y = 0; y < 32; y++) {
+					if (enemy_arr[i].pos[0] + x < 0 || enemy_arr[i].pos[1] + y < 0 || enemy_arr[i].pos[0] + x > 995 || enemy_arr[i].pos[1] + y > 870) {
+						continue;
+					}
+					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0]+x, enemy_arr[i].pos[1]+y) == 2) {
+						if (game_time - damage_cooldown >= .5) {
+							damage_cooldown = game_time;
+							player_hp[0]--;
+						}
+					}
+				}
+			}
 		}
 	}
-
-	gui.set_Image_at_Pixel(player_pos[0]-8, player_pos[1]-8, arrow[arrow_image]);
-
-	gui.set_Sprite_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
 
 	write("Score: 0", (WIDTH/2)-60, 0, "chars_small");
 	write("Time: " + std::to_string(game_time), (WIDTH / 2) - (15 * (3+(std::to_string(game_time).length()/2))), 25, "chars_small");
@@ -159,27 +172,48 @@ void Game::key_press() {
 
 		if (player_dir <= 22 && player_dir >= -22) {
 			arrow_image = 0;
+			attack_dir = 0;
 		}
 		else if (player_dir > 22 && player_dir < 68) {
 			arrow_image = 4;
+			attack_dir = 4;
 		}
 		else if (player_dir >= 68 && player_dir <= 112) {
 			arrow_image = 3;
+			attack_dir = 3;
 		}
 		else if (player_dir > 112 && player_dir < 158) {
 			arrow_image = 7;
+			attack_dir = 7;
 		}
 		else if (player_dir >= 158 && player_dir >= -158) {
 			arrow_image = 2;
+			attack_dir = 2;
 		}
 		else if (player_dir > -158 && player_dir < -112) {
 			arrow_image = 6;
+			attack_dir = 6;
 		}
 		else if (player_dir >= -112 && player_dir <= -68) {
 			arrow_image = 1;
+			attack_dir = 1;
 		}
 		else if (player_dir > -68 && player_dir <= -2) {
 			arrow_image = 5;
+			attack_dir = 5;
+		}
+
+		if (window.mouse.LeftIsPressed() && game_time - attack_cooldown >= 1) {
+			frame_time = game_time;
+			int frame = 0;
+			while (frame < 3) {
+				if (game_time - frame_time >= .1) {
+					gui.set_Sprite_at_Pixel(player_pos[0] - 50, player_pos[1] - 50, sword[frame + (3 * attack_dir)]);
+					frame_time = game_time;
+					frame++;
+				}
+			}
+			attack_cooldown = game_time;
 		}
 
 		if (window.kbd.KeyIsPressed(VK_F2)) {
@@ -196,6 +230,16 @@ void Game::spawn_enemy() {
 		if (enemy_arr[i].state == "") {
 			enemy_arr[i].spawn(1, 1, 0, spawn_x, spawn_y);
 			break;
+		}
+	}
+}
+
+void Game::reset_collisions() {
+	for (int x = 0; x < WIDTH; x++) {
+		for (int y = 0; y < HEIGHT; y++) {
+			if (gui.get_CollissionMap_Data_at_Pixel(x, y) != 0) {
+				gui.set_CollissionMap_Data_at_Pixel(x, y, 0);
+			}
 		}
 	}
 }

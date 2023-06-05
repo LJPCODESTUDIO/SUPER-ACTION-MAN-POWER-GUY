@@ -43,6 +43,8 @@ private:
 	bool start = true;
 	bool initial = true;
 	bool debug = false;
+	bool swing = false;
+	bool damage_enemy = false;
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;
@@ -54,15 +56,19 @@ private:
 	int attack_dir = 0;
 	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
 	int enemys = 0; // Mostly just for testing, who knows if I'll keep this
+	int frames = 0;
+	int frame = 0;
 
 	float player_dir = 0;
 	float game_time;
 	float enemy_spawn_cd = 3;
+	float enemy_spawn_hp = 1;
 	float last_enemy_spawn = 0;
 	float damage_cooldown = -1;
 	float attack_cooldown = -1;
-	float frame_time = -1;
+	float difficulty_timer = 0;
 	float track_time = 0;
+	float frame_time = 0;
 	float tick_60 = 0;
 	float delta;
 
@@ -77,6 +83,8 @@ private:
 	void spawn_enemy();
 
 	void reset_collisions();
+
+	void game_over();
 
 public:
 	Game(class MainWindow& _app_window);

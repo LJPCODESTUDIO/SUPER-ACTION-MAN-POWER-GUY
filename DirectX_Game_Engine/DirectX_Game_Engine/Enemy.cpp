@@ -11,7 +11,7 @@ Enemy::~Enemy() {
 	state = "";
 }
 
-void Enemy::spawn(int _type, int _hp, int _image, int _start_x, int _start_y) {
+void Enemy::spawn(int _type, float _hp, int _image, int _start_x, int _start_y) {
 	hp = _hp;
 	type = _type;
 	sprite_image = _image;
@@ -45,4 +45,12 @@ void Enemy::move(int player[]) {
 			pos[1] += 7;
 		}
 	}
+}
+
+void Enemy::die() {
+	hp = NULL;
+	type = NULL;
+	sprite_image = NULL;
+	pos[0] = NULL; pos[1] = NULL;
+	state = "";
 }

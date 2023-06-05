@@ -21,11 +21,12 @@ private:
 	uint8_t green_screen[3] = { 10,10,10 };
 
 public:
-	int hp = NULL;
 	int type = NULL;
 	int pos[2] = { NULL,NULL };
 	int id = NULL;
 	int sprite_image = 0;
+
+	float hp = NULL;
 
 	bool init = true;
 
@@ -36,7 +37,9 @@ public:
 	Enemy();
 	~Enemy();
 
-	void spawn(int _type, int _hp, int _image, int _start_x, int _start_y);
+	void spawn(int _type, float _hp, int _image, int _start_x, int _start_y);
 
 	void move(int player[]);
+
+	void die();
 };

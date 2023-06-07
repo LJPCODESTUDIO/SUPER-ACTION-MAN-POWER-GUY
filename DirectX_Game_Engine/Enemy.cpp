@@ -20,7 +20,7 @@ void Enemy::spawn(int _type, float _hp, int _image, int _start_x, int _start_y) 
 	init = false;
 }
 
-void Enemy::move(int player[]) {
+void Enemy::move(int player[], bool hitting_shield) {
 	if (type == 1) {
 		float dis_x = player[0] - pos[0];
 		float dis_y = player[1] - pos[1];
@@ -30,7 +30,12 @@ void Enemy::move(int player[]) {
 			dis_y /= hyp;
 		}
 
-		pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
+		if (!hitting_shield) {
+			pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
+		}
+		else {
+			pos[0] -= round(dis_x * 7); pos[1] -= round(dis_y * 7);
+		}
 
 		if (pos[0] >= 995) {
 			pos[0] -= 7;
@@ -53,4 +58,5 @@ void Enemy::die() {
 	sprite_image = NULL;
 	pos[0] = NULL; pos[1] = NULL;
 	state = "";
+	entity.set_Find_Replace_RGB(white, red);
 }

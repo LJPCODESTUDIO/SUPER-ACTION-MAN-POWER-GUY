@@ -38,7 +38,7 @@ void Game::game_loop() {
 		last_enemy_spawn = game_time;
 	}
 	if (game_time - difficulty_timer >= 1) {
-		if (enemy_spawn_cd > 0.7) {
+		if (enemy_spawn_cd > 1) {
 			enemy_spawn_cd -= enemy_spawn_cd * .01;
 			difficulty_timer = game_time;
 		}
@@ -85,11 +85,11 @@ void Game::game_loop() {
 					}
 				}
 			}
-			if (!hitting_shield) {
-				enemy_arr[i].move(player_pos);
-			}
+
+			enemy_arr[i].move(player_pos, hitting_shield);
 			//gui.set_Sprite_Off(enemy_arr[i].entity);
 			gui.set_Sprite_at_Pixel(enemy_arr[i].pos[0], enemy_arr[i].pos[1], enemy_arr[i].entity);
+			enemy_arr[i].entity.set_Find_Replace_RGB(white, red);
 			for (int x = 0; x < 32; x++) {
 				for (int y = 0; y < 32; y++) {
 					if (enemy_arr[i].pos[0] + x < 0 || enemy_arr[i].pos[1] + y < 0 || enemy_arr[i].pos[0] + x > 995 || enemy_arr[i].pos[1] + y > 870) {
@@ -105,7 +105,8 @@ void Game::game_loop() {
 						}
 					}
 					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + x, enemy_arr[i].pos[1] + y) == 3 && damage_enemy) {
-						enemy_arr[i].hp--;
+						enemy_arr[i].hp -= 1;
+						enemy_arr[i].entity.set_Find_Replace_RGB(red, white);
 						if (enemy_arr[i].hp <= 0) {
 							enemy_arr[i].die();
 							score++;
@@ -148,23 +149,30 @@ void Game::start_game() {
 	
 	gui.refresh_Gui();
 	
+	if (game_over_check) {
+		std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+		game_over_check = false;
+	}
+	
 	if (window.mouse.LeftIsPressed()) {
 		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 1) {
 			player_hp[0] = player_hp[1];
 			player_pos[0] = 512; player_pos[1] = 450;
 			enemy_spawn_cd = 3;
-			difficulty_timer = game_time;
 			damage_cooldown = -1;
 			attack_cooldown = 0;
 			last_enemy_spawn = 0;
 			frames = 0;
 			frame = 0;
 			score = 0;
+			frame_time = 0;
 			enemy_spawn_hp = 1;
 			swing = false;
 			damage_cooldown = false;
 			start = false;
 			start_time = clock();
+			check_time_and_fps(tick_60);
+			difficulty_timer = game_time;
 			gui.set_Target_SubGui(1, 0);
 			gui.set_RGB_on_Gui(black);
 		}
@@ -178,11 +186,27 @@ void Game::store() {
 	gui.set_Target_SubGui(2, 0);
 	gui.set_RGB_on_Gui(grey);
 
+	write(std::to_string(window.mouse.GetPosX()) + "," + std::to_string(window.mouse.GetPosY()), 0, HEIGHT - 25, "chars_small");
+
 	gui.set_Sprite_at_Pixel(20, 20, back);
+	write("Cash: " + std::to_string(cash), (WIDTH / 2) - (15 * (3 + (std::to_string(cash).length() / 2))), 0, "chars_small");
+
+	write("Price: " + std::to_string(player_hp[1]), 110, 259, "chars_small");
+	write("Current: " + std::to_string(player_hp[1]), 110, 284, "chars_small");
+	write("New: " + std::to_string(player_hp[1]+2), 110, 309, "chars_small");
+	gui.set_Sprite_at_Pixel(110, 180, upgrade_health);
 
 	if (window.mouse.LeftIsPressed()) {
-		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 6) {
+		uint8_t collision = gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY());
+		if (collision == 6) {
 			store_open = false;
+		}
+		else if (collision == 7) {
+			if (cash >= player_hp[1]) {
+				cash -= player_hp[1];
+				player_hp[1] += 2;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
 		}
 	}
 
@@ -234,9 +258,6 @@ void Game::key_press() {
 		else if (dir_x < 0) {
 			player_image = 1;
 		}
-		if (dir_x != 0 || dir_y != 0) {
-			//gui.set_Sprite_Off(player);
-		}
 
 		float hyp = sqrtf(dir_x * dir_x + dir_y * dir_y);
 		if (hyp != 0) {
@@ -247,6 +268,10 @@ void Game::key_press() {
 		if (!shielding) {
 			player_pos[0] += round(dir_x * 7);
 			player_pos[1] += round(dir_y * 7);
+		}
+		else {
+			player_pos[0] += round(dir_x * 6);
+			player_pos[1] += round(dir_y * 6);
 		}
 
 		if (player_pos[0] >= 995) {
@@ -341,11 +366,10 @@ void Game::spawn_enemy() {
 	while (!valid) {
 		spawn_x = rand() % WIDTH;
 		spawn_y = rand() % HEIGHT;
-		int dis_x = player_pos[0] - spawn_x;
-		int dis_y = player_pos[1] - spawn_y;
-		float hyp = sqrtf(dis_x * dis_x + dis_y * dis_y);
+		int dis_x = abs(player_pos[0] - spawn_x);
+		int dis_y = abs(player_pos[1] - spawn_y);
 
-		if (hyp >= 100) {
+		if (dis_x >= 250 && dis_y <= 250) {
 			valid = true;
 		}
 	}
@@ -374,4 +398,5 @@ void Game::game_over() {
 	}
 	cash += score;
 	start = true;
+	game_over_check = true;
 }

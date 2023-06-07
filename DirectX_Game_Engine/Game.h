@@ -19,7 +19,7 @@ private:
 	uint8_t white[3] = { 255,255,255 };
 	uint8_t black[3] = { 0,0,0 };
 	uint8_t yellow[3] = { 200,200,0 };
-	uint8_t red[3] = { 210, 4, 45 };
+	uint8_t red[3] = { 255, 0, 0 };
 	uint8_t orange[3] = { 255,67,36 };
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
@@ -39,6 +39,7 @@ private:
 	Sprite shield = Sprite(4, "Images/default_shield.bmp", green_screen, nullptr, 4, 2);
 	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", green_screen, nullptr);
 	Sprite back = Sprite(6, "Images/Back_Button.bmp", green_screen, nullptr);
+	Sprite upgrade_health = Sprite(7, "Images/Health_Button.bmp");
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
@@ -51,6 +52,7 @@ private:
 	bool swing = false;
 	bool damage_enemy = false;
 	bool shielding = false;
+	bool game_over_check = true;
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;

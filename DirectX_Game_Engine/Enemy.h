@@ -13,7 +13,7 @@ private:
 	uint8_t white[3] = { 255,255,255 };
 	uint8_t black[3] = { 0,0,0 };
 	uint8_t yellow[3] = { 200,200,0 };
-	uint8_t red[3] = { 210, 4, 45 };
+	uint8_t red[3] = { 255, 0, 0 };
 	uint8_t orange[3] = { 255,67,36 };
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
@@ -39,7 +39,7 @@ public:
 
 	void spawn(int _type, float _hp, int _image, int _start_x, int _start_y);
 
-	void move(int player[]);
+	void move(int player[], bool hitting_shield);
 
 	void die();
 };

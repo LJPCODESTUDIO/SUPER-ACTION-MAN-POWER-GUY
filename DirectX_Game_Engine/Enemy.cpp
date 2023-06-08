@@ -13,11 +13,13 @@ Enemy::~Enemy() {
 
 void Enemy::spawn(int _type, float _hp, int _image, int _start_x, int _start_y) {
 	hp = _hp;
+	old_hp = _hp;
 	type = _type;
 	sprite_image = _image;
 	pos[0] = _start_x; pos[1] = _start_y;
 	state = "Active";
 	init = false;
+	damage_cd = -1;
 }
 
 void Enemy::move(int player[], bool hitting_shield) {

@@ -87,9 +87,11 @@ void Game::game_loop() {
 			}
 
 			enemy_arr[i].move(player_pos, hitting_shield);
-			//gui.set_Sprite_Off(enemy_arr[i].entity);
 			gui.set_Sprite_at_Pixel(enemy_arr[i].pos[0], enemy_arr[i].pos[1], enemy_arr[i].entity);
-			enemy_arr[i].entity.set_Find_Replace_RGB(white, red);
+			if (enemy_arr[i].old_hp != enemy_arr[i].hp) {
+				enemy_arr[i].entity.set_Find_Replace_RGB(white, red);
+				enemy_arr[i].old_hp = enemy_arr[i].hp;
+			}
 			for (int x = 0; x < 32; x++) {
 				for (int y = 0; y < 32; y++) {
 					if (enemy_arr[i].pos[0] + x < 0 || enemy_arr[i].pos[1] + y < 0 || enemy_arr[i].pos[0] + x > 995 || enemy_arr[i].pos[1] + y > 870) {
@@ -97,6 +99,7 @@ void Game::game_loop() {
 					}
 					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0]+x, enemy_arr[i].pos[1]+y) == 2) {
 						if (game_time - damage_cooldown >= .5) {
+							hurt.Play();
 							damage_cooldown = game_time;
 							player_hp[0]--;
 							if (player_hp[0] <= 0) {
@@ -105,11 +108,15 @@ void Game::game_loop() {
 						}
 					}
 					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + x, enemy_arr[i].pos[1] + y) == 3 && damage_enemy) {
-						enemy_arr[i].hp -= 1;
-						enemy_arr[i].entity.set_Find_Replace_RGB(red, white);
-						if (enemy_arr[i].hp <= 0) {
-							enemy_arr[i].die();
-							score++;
+						if (game_time - enemy_arr[i].damage_cd >= .1) {
+							hurt.Play();
+							enemy_arr[i].damage_cd = game_time;
+							enemy_arr[i].hp -= 1;
+							enemy_arr[i].entity.set_Find_Replace_RGB(red, white);
+							if (enemy_arr[i].hp <= 0) {
+								enemy_arr[i].die();
+								score++;
+							}
 						}
 					}
 				}
@@ -150,7 +157,7 @@ void Game::start_game() {
 	gui.refresh_Gui();
 	
 	if (game_over_check) {
-		std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+		std::this_thread::sleep_for(std::chrono::milliseconds{ 350 });
 		game_over_check = false;
 	}
 	

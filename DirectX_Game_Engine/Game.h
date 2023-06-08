@@ -32,6 +32,7 @@ private:
 	Image arrow = Image("Images/Arrow.bmp", green_screen, nullptr, 4, 2);
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
+	Sound hurt = Sound(L"./Sounds/523769__matrixxx__retro_hit.wav");
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
 	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);

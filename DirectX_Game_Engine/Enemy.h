@@ -27,6 +27,8 @@ public:
 	int sprite_image = 0;
 
 	float hp = NULL;
+	float old_hp = NULL;
+	float damage_cd = -1;
 
 	bool init = true;
 

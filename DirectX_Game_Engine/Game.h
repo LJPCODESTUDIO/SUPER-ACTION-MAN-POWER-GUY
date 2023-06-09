@@ -33,6 +33,9 @@ private:
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
 	Sound hurt = Sound(L"./Sounds/523769__matrixxx__retro_hit.wav");
+	Sound swing_sfx = Sound(L"./Sounds/Swing_Hit_SFX.wav");
+	Sound click = Sound(L"./Sounds/Click.wav");
+	Sound click_fail = Sound(L"./Sounds/Click_Fail.wav");
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
 	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
@@ -63,7 +66,7 @@ private:
 	int player_image = 0;
 	int arrow_image = 0;
 	int attack_dir = 0;
-	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
+	int player_hp[2] = { 10,100 }; // Stored as an array for Current Health and Max Health
 	int enemys = 0; // Mostly just for testing, who knows if I'll keep this
 	int frames = 0; // Keeps track of amount of frames in entire game
 	int frame = 0; // Will probably need to change the name of this or something, this is what tracks animation frames

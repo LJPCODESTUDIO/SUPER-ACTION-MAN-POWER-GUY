@@ -44,10 +44,12 @@ private:
 	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", green_screen, nullptr);
 	Sprite back = Sprite(6, "Images/Back_Button.bmp", green_screen, nullptr);
 	Sprite upgrade_health = Sprite(7, "Images/Health_Button.bmp");
+	Sprite reset = Sprite(8, "Images/Reset_Button.bmp", green_screen);
+	Sprite confirm = Sprite(9, "Images/Confirm_Button.bmp", green_screen);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
-	Enemy enemy_arr[100];
+	Enemy enemy_arr[500];
 
 	bool start = true;
 	bool store_open = false;
@@ -57,6 +59,7 @@ private:
 	bool damage_enemy = false;
 	bool shielding = false;
 	bool game_over_check = true;
+	bool confirm_reset = false;
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;
@@ -67,18 +70,18 @@ private:
 	int arrow_image = 0;
 	int attack_dir = 0;
 	int player_hp[2] = { 10,100 }; // Stored as an array for Current Health and Max Health
-	int enemys = 0; // Mostly just for testing, who knows if I'll keep this
 	int frames = 0; // Keeps track of amount of frames in entire game
 	int frame = 0; // Will probably need to change the name of this or something, this is what tracks animation frames
 	int score = 0;
 	int cash = 0;
+	int spawn_amount = 1;
+	int spawn_amount_increase = 30;
 
 	float player_dir = 0;
 	float game_time = 0;
 	float enemy_spawn_cd = 3;
 	float enemy_spawn_hp = 1;
 	float last_enemy_spawn = 0;
-	float damage_cooldown = -1;
 	float attack_cooldown = -1;
 	float difficulty_timer = 0;
 	float track_time = 0;

@@ -30,12 +30,13 @@ public:
 	float old_hp = NULL;
 	float damage_cd = -1;
 	float move_perm[3] = { 1,1,1 };
+	float attack_cd = -1;
 
 	bool init = true;
 
 	std::string state = "";
 
-	Sprite entity = Sprite(rand()+4, "Images/Entity.bmp", green_screen, nullptr, 2);
+	Sprite entity = Sprite(rand()+50, "Images/Entity.bmp", green_screen, nullptr, 4);
 
 	Enemy();
 	~Enemy();

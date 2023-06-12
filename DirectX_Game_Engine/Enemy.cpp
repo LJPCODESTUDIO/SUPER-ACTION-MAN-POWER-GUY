@@ -34,10 +34,10 @@ void Enemy::move(int player[], bool hitting_shield) {
 		}
 
 		if (!hitting_shield) {
-			pos[0] += round(dis_x * 5); pos[1] += round(dis_y * 5);
+			pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
 		}
 		else {
-			pos[0] -= round(dis_x * 6); pos[1] -= round(dis_y * 6);
+			pos[0] -= round(dis_x * 7); pos[1] -= round(dis_y * 7);
 		}
 
 		if (pos[0] >= 995) {
@@ -67,10 +67,10 @@ void Enemy::move(int player[], bool hitting_shield) {
 		}
 		else {
 			if (!hitting_shield) {
-				pos[0] += round(move_perm[0] * 10); pos[1] += round(move_perm[1] * 10);
+				pos[0] += round(move_perm[0] * 15); pos[1] += round(move_perm[1] * 15);
 			}
 			else {
-				pos[0] -= round(move_perm[0] * 11); pos[1] -= round(move_perm[1] * 11);
+				pos[0] -= round(move_perm[0] * 16); pos[1] -= round(move_perm[1] * 16);
 			}
 			if (pos[0] >= 995) {
 				die();
@@ -90,35 +90,37 @@ void Enemy::move(int player[], bool hitting_shield) {
 	}
 
 	else if (type == 3) {
-		if (init) {
-			move_perm[0] = player[0] - pos[0];
-			move_perm[1] = player[1] - pos[1];
-			move_perm[2] = sqrtf(move_perm[0] * move_perm[0] + move_perm[1] * move_perm[1]);
-			if (move_perm[2] != 0) {
-				move_perm[0] /= move_perm[2];
-				move_perm[1] /= move_perm[2];
-			}
-			init = false;
+		init = false;
+	}
+
+	if (type == 4) {
+		init = false;
+		float dis_x = player[0] - pos[0];
+		float dis_y = player[1] - pos[1];
+		float hyp = sqrtf(dis_x * dis_x + dis_y * dis_y);
+		if (hyp != 0) {
+			dis_x /= hyp;
+			dis_y /= hyp;
+		}
+
+		if (!hitting_shield) {
+			pos[0] += round(dis_x * 3); pos[1] += round(dis_y * 3);
 		}
 		else {
-			if (!hitting_shield) {
-				pos[0] += round(move_perm[0] * 10); pos[1] += round(move_perm[1] * 10);
-			}
-			else {
-				pos[0] -= round(move_perm[0] * 11); pos[1] -= round(move_perm[1] * 11);
-			}
-			if (pos[0] >= 995) {
-				init = true;
-			}
-			if (pos[0] <= 0) {
-				init = true;
-			}
-			if (pos[1] >= 870) {
-				init = true;
-			}
-			if (pos[1] <= 0) {
-				init = true;
-			}
+			pos[0] -= round(dis_x * 4); pos[1] -= round(dis_y * 4);
+		}
+
+		if (pos[0] >= 995) {
+			pos[0] -= 7;
+		}
+		if (pos[0] <= 0) {
+			pos[0] += 7;
+		}
+		if (pos[1] >= 870) {
+			pos[1] -= 7;
+		}
+		if (pos[1] <= 0) {
+			pos[1] += 7;
 		}
 	}
 }
@@ -128,6 +130,8 @@ void Enemy::die() {
 	type = NULL;
 	sprite_image = NULL;
 	pos[0] = NULL; pos[1] = NULL;
+	damage_cd = -1;
+	attack_cd = -1;
 	state = "";
 	entity.set_Find_Replace_RGB(white, red);
 }

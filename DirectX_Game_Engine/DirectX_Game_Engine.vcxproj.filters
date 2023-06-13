@@ -81,17 +81,14 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="RGB_Data.h">
       <Filter>Header Files\Backend\Gui</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>Header Files\Backend\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="RBG_Data.h">
+    <ClInclude Include="Sprite.h">
       <Filter>Header Files\Backend\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,17 +119,14 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="RGB_Data.cpp">
       <Filter>Source Files\Backend\Gui</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>Source Files\Backend\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="RGB_Data.cpp">
+    <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Backend\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

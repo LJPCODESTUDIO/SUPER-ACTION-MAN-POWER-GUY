@@ -1,13 +1,224 @@
 ﻿  Game.cpp
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(134,127): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(135,125): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(136,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(226,121): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(261,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
-C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(265,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
-  Generating code
-  18 of 1305 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    28 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  DirectX_Game_Engine.vcxproj -> C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\x64\Release\DirectX_Game_Engine.exe
+  EntryPoint.cpp
+  Enemy.cpp
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,8): error C3646: 'enemy_arr': unknown override specifier (compiling source file Enemy.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,17): error C2143: syntax error: missing ',' before '[' (compiling source file Enemy.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,22): error C2238: unexpected token(s) preceding ';' (compiling source file Enemy.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,8): error C3646: 'enemy_arr': unknown override specifier (compiling source file EntryPoint.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(3,1): error C2653: 'Enemy': is not a class or namespace name
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(3,16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(4,2): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,17): error C2143: syntax error: missing ',' before '[' (compiling source file EntryPoint.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(5,1): warning C4508: 'Enemy': function should return a value; 'void' return type assumed
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,22): error C2238: unexpected token(s) preceding ';' (compiling source file EntryPoint.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(7,1): error C2653: 'Enemy': is not a class or namespace name
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(7,9): error C2523: '<Unknown>::~Enemy': destructor tag mismatch
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(7,17): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(7,14): error C2084: function 'int Enemy(void)' already has a body
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(3): message : see previous definition of 'Enemy'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(8,2): error C2065: 'hp': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(9,2): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(10,2): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(10,17): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(11,2): error C2065: 'state': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(14,6): error C2653: 'Enemy': is not a class or namespace name
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(15,2): error C2065: 'hp': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(16,2): error C2065: 'old_hp': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(17,2): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(18,2): error C2065: 'sprite_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(19,2): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(19,21): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(20,2): error C2065: 'state': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(21,2): error C2065: 'damage_cd': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(22,2): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(25,6): error C2653: 'Enemy': is not a class or namespace name
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(26,6): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(27,3): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(28,29): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(29,29): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(37,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(37,32): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(40,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(40,32): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(43,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(44,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(46,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(47,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(49,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(50,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(52,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(53,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(57,11): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(58,7): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(59,4): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(59,31): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(60,4): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(60,31): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(61,4): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(61,25): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(61,40): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(61,55): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(61,70): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(62,8): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(63,5): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(63,21): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(64,5): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(64,21): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(66,4): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(70,5): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(70,21): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(70,41): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(70,57): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(73,5): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(73,21): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(73,41): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(73,57): error C2065: 'move_perm': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(75,8): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(76,5): error C3861: 'die': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(78,8): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(79,5): error C3861: 'die': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(81,8): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(82,5): error C3861: 'die': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(84,8): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(85,5): error C3861: 'die': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(92,11): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(93,3): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(96,6): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(97,3): error C2065: 'init': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(98,29): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(99,29): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(107,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(107,32): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(110,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(110,32): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(113,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(114,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(116,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.h(11,12): error C2011: 'Game': 'class' type redefinition (compiling source file EntryPoint.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(11): message : see declaration of 'Game' (compiling source file EntryPoint.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(117,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(119,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\EntryPoint.cpp(12,9): error C2079: 'game' uses undefined class 'Game'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(120,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(122,7): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(123,4): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(128,6): error C2653: 'Enemy': is not a class or namespace name
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(129,2): error C2065: 'hp': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(130,2): error C2065: 'type': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(131,2): error C2065: 'sprite_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(132,2): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(132,17): error C2065: 'pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(133,2): error C2065: 'damage_cd': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(134,2): error C2065: 'attack_cd': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(135,2): error C2065: 'state': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(136,2): error C2065: 'entity': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.cpp(136,8): fatal  error C1003: error count exceeds 100; stopping compilation
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\EntryPoint.cpp(12,17): error C2440: 'initializing': cannot convert from 'MainWindow' to 'int'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\EntryPoint.cpp(12,13): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,8): error C3646: 'enemy_arr': unknown override specifier (compiling source file Game.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,17): error C2143: syntax error: missing ',' before '[' (compiling source file Game.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(52,22): error C2238: unexpected token(s) preceding ';' (compiling source file Game.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.h(11,12): error C2011: 'Game': 'class' type redefinition (compiling source file Game.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(11): message : see declaration of 'Game' (compiling source file Game.cpp)
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(7,7): error C2027: use of undefined type 'Game'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(11): message : see declaration of 'Game'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(7,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(7,65): error C2550: '{ctor}': constructor initializer lists are only allowed on constructor definitions
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(7,66): warning C4508: '{ctor}': function should return a value; 'void' return type assumed
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(9,12): error C2027: use of undefined type 'Game'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Enemy.h(11): message : see declaration of 'Game'
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(10,6): error C2065: 'initial': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(11,3): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(12,3): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(12,22): error C2065: 'black': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(13,3): error C2065: 'initial': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(14,3): error C2065: 'track_1': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(16,4): error C2065: 'enemy_arr': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(20,6): error C2065: 'game_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(20,18): error C2065: 'track_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(21,3): error C2065: 'track_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(21,16): error C2065: 'game_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(22,3): error C2065: 'track_1': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(24,6): error C2065: 'start': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(25,7): error C2065: 'store_open': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(26,4): error C3861: 'store': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(29,3): error C3861: 'start_game': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(32,21): error C2065: 'tick_60': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(32,2): error C3861: 'check_time_and_fps': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(33,2): error C3861: 'reset_collisions': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(34,2): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(34,21): error C2065: 'black': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(36,6): error C2065: 'game_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(36,18): error C2065: 'last_enemy_spawn': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(36,38): error C2065: 'enemy_spawn_cd': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(37,7): error C2065: 'score': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(37,16): error C2065: 'spawn_amount_increase': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(38,4): error C2065: 'spawn_amount': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(39,4): error C2065: 'spawn_amount_increase': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(41,7): error C2065: 'score': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(41,16): error C2065: 'difficulty_increase': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(43,8): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(44,5): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(47,10): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(48,7): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(52,13): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(53,5): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(56,10): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(57,7): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(61,13): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(62,5): error C2065: 'difficulty': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(65,10): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(66,7): error C2065: 'spawn_pool': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(70,4): error C2065: 'difficulty_increase': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(72,8): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(72,15): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(72,19): error C2065: 'spawn_amount': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(72,33): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(73,4): error C3861: 'spawn_enemy': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(75,3): error C2065: 'last_enemy_spawn': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(75,22): error C2065: 'game_time': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(78,2): error C2065: 'player_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(79,2): error C3861: 'key_press': identifier not found
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(80,2): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(80,25): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(80,44): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(80,63): error C2065: 'arrow': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(80,69): error C2065: 'arrow_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(81,2): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(81,26): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(81,41): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(81,56): error C2065: 'player': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(81,63): error C2065: 'player_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(83,6): error C2065: 'swing': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(84,7): error C2065: 'frames': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(84,16): error C2065: 'frame': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(85,4): error C2065: 'swing': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(88,8): error C2065: 'frames': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(88,17): error C2065: 'frame': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(89,5): error C2065: 'damage_enemy': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(92,5): error C2065: 'damage_enemy': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,4): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,28): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,46): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,64): error C2065: 'sword': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,71): error C2065: 'frames': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,80): error C2065: 'frame': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(94,94): error C2065: 'attack_dir': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(97,6): error C2065: 'shielding': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(98,3): error C2065: 'gui': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(98,27): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(98,47): error C2065: 'player_pos': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(98,67): error C2065: 'shield': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(98,74): error C2065: 'arrow_image': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(101,7): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(101,14): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(101,23): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(102,7): error C2065: 'enemy_arr': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(102,17): error C2065: 'i': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(104,9): error C2065: 'check_x': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(104,22): error C2065: 'check_x': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(104,36): error C2065: 'check_x': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(105,10): error C2065: 'check_y': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(105,23): error C2065: 'check_y': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(105,37): error C2065: 'check_y': undeclared identifier
+C:\Users\shackletonj150\Local\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(105,44): fatal  error C1003: error count exceeds 100; stopping compilation

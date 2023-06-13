@@ -34,7 +34,44 @@ void Game::game_loop() {
 	gui.set_RGB_on_Gui(black);
 
 	if (game_time - last_enemy_spawn >= enemy_spawn_cd) {
-		spawn_enemy();
+		if (score >= spawn_amount_increase) {
+			spawn_amount++;
+			spawn_amount_increase += 50;
+		}
+		if (score >= difficulty_increase) {
+			int added = 0;
+			if (difficulty == 1) {
+				difficulty++;
+				while (added < 15) {
+					int pos = rand() % 100;
+					if (spawn_pool[pos] == 1) {
+						spawn_pool[pos] = 2;
+					}
+				}
+			}
+			else if (difficulty == 2) {
+				difficulty++;
+				while (added < 15) {
+					int pos = rand() % 100;
+					if (spawn_pool[pos] == 1) {
+						spawn_pool[pos] = 3;
+					}
+				}
+			}
+			else if (difficulty == 3) {
+				difficulty++;
+				while (added < 10) {
+					int pos = rand() % 100;
+					if (spawn_pool[pos] == 1) {
+						spawn_pool[pos] = 4;
+					}
+				}
+			}
+			difficulty_increase += 30;
+		}
+		for (i = 0; i < spawn_amount; i++) {
+			spawn_enemy();
+		}
 		last_enemy_spawn = game_time;
 	}
 
@@ -61,15 +98,15 @@ void Game::game_loop() {
 		gui.set_Sprite_at_Pixel(player_pos[0] - 16, player_pos[1] - 16, shield[arrow_image]);
 	}
 
-	for (int i = 0; i < 500; i++) {
+	for (i = 0; i < 500; i++) {
 		if (enemy_arr[i].state != "") {
 			bool hitting_shield = false;
-			for (int x = 0; x < 32; x++) {
-				for (int y = 0; y < 32; y++) {
-					if (enemy_arr[i].pos[0] + x < 0 || enemy_arr[i].pos[1] + y < 0 || enemy_arr[i].pos[0] + x > 995 || enemy_arr[i].pos[1] + y > 870) {
+			for (check_x = 0; check_x < 32; check_x++) {
+				for (check_y = 0; check_y < 32; check_y++) {
+					if (enemy_arr[i].pos[0] + check_x < 0 || enemy_arr[i].pos[1] + check_y < 0 || enemy_arr[i].pos[0] + check_x > 995 || enemy_arr[i].pos[1] + check_y > 870) {
 						continue;
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + x, enemy_arr[i].pos[1] + y) == 4) {
+					if (gui.get_CollisionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 4) {
 						hitting_shield = true;
 						break;
 					}
@@ -82,12 +119,12 @@ void Game::game_loop() {
 				enemy_arr[i].entity.set_Find_Replace_RGB(white, red);
 				enemy_arr[i].old_hp = enemy_arr[i].hp;
 			}
-			for (int x = 0; x < 32; x++) {
-				for (int y = 0; y < 32; y++) {
-					if (enemy_arr[i].pos[0] + x < 0 || enemy_arr[i].pos[1] + y < 0 || enemy_arr[i].pos[0] + x > 995 || enemy_arr[i].pos[1] + y > 870) {
+			for (check_x = 0; check_x < 32; check_x++) {
+				for (check_y = 0; check_y < 32; check_y++) {
+					if (enemy_arr[i].pos[0] + check_x < 0 || enemy_arr[i].pos[1] + check_y < 0 || enemy_arr[i].pos[0] + check_x > 995 || enemy_arr[i].pos[1] + check_y > 870) {
 						continue;
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0]+x, enemy_arr[i].pos[1]+y) == 2) {
+					if (gui.get_CollisionMap_Data_at_Pixel(enemy_arr[i].pos[0]+ check_x, enemy_arr[i].pos[1]+ check_y) == 2) {
 						if (game_time - enemy_arr[i].attack_cd >= .5) {
 							hurt.Play();
 							enemy_arr[i].attack_cd = game_time;
@@ -106,7 +143,7 @@ void Game::game_loop() {
 							}
 						}
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + x, enemy_arr[i].pos[1] + y) == 3 && damage_enemy) {
+					if (gui.get_CollisionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 3 && damage_enemy) {
 						if (game_time - enemy_arr[i].damage_cd >= .1) {
 							hurt.Play();
 							enemy_arr[i].damage_cd = game_time;
@@ -141,7 +178,7 @@ void Game::game_loop() {
 		write("Direction: " + std::to_string(player_dir), 0, 50, "chars_small");
 		write("Frames: " + std::to_string(frames), 0, 75, "chars_small");
 		write("Spawn CD: " + std::to_string(enemy_spawn_cd), 0, 100, "chars_small");
-		for (int i = 0; i < 500; i++) {
+		for (i = 0; i < 500; i++) {
 			if (enemy_arr[i].state != "") {
 				write("Enemy" + std::to_string(i) + ": " + std::to_string(enemy_arr[i].hp), 0, 125 + (i * 25), "chars_small");
 			}
@@ -175,7 +212,7 @@ void Game::start_game() {
 	}
 	
 	if (window.mouse.LeftIsPressed()) {
-		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 1) {
+		if (gui.get_CollisionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 1) {
 			click.Play();
 			player_hp[0] = player_hp[1];
 			player_pos[0] = 512; player_pos[1] = 450;
@@ -189,24 +226,27 @@ void Game::start_game() {
 			enemy_spawn_hp = 1;
 			spawn_amount = 1;
 			spawn_amount_increase = 30;
+			difficulty_increase = 30;
+			for (int i = 0; i < 50; i++) {
+				spawn_pool[i] = 1;
+			}
 			swing = false;
 			start = false;
 			start_time = clock();
 			check_time_and_fps(tick_60);
-			difficulty_timer = game_time;
 			gui.set_Target_SubGui(1, 0);
 			gui.set_RGB_on_Gui(black);
 		}
-		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 5) {
+		if (gui.get_CollisionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 5) {
 			click.Play();
 			store_open = true;
 		}
-		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 8) {
+		if (gui.get_CollisionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 8) {
 			click.Play();
 			confirm_reset = true;
 			std::this_thread::sleep_for(std::chrono::milliseconds{ 500 });
 		}
-		if (gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 9) {
+		if (gui.get_CollisionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY()) == 9) {
 			click.Play();
 			confirm_reset = false;
 			cash = 0;
@@ -231,7 +271,7 @@ void Game::store() {
 	gui.set_Sprite_at_Pixel(110, 180, upgrade_health);
 
 	if (window.mouse.LeftIsPressed()) {
-		uint8_t collision = gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY());
+		uint8_t collision = gui.get_CollisionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY());
 		if (collision == 6) {
 			click.Play();
 			store_open = false;
@@ -287,7 +327,7 @@ void Game::check_time_and_fps(float last_tick_60) {
 }
 
 void Game::key_press() {
-	if (gui.get_Gui_Elem() == 1) {
+	if (!start) {
 		// Player stuff
 		float dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
 		float dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
@@ -401,91 +441,52 @@ void Game::key_press() {
 }
 
 void Game::spawn_enemy() {
-	if (score >= spawn_amount_increase) {
-		spawn_amount++;
-		spawn_amount_increase += 30;
-	}
-	for (int i = 0; i < spawn_amount; i++) {
-		int spawn_x = rand() % WIDTH;
-		int spawn_y = rand() % HEIGHT;
-		bool valid = false;
-		while (!valid) {
-			spawn_x = rand() % WIDTH;
-			spawn_y = rand() % HEIGHT;
-			int dis_x = abs(player_pos[0] - spawn_x);
-			int dis_y = abs(player_pos[1] - spawn_y);
+	int spawn_x = rand() % WIDTH;
+	int spawn_y = rand() % HEIGHT;
+	bool valid = false;
+	while (!valid) {
+		spawn_x = rand() % WIDTH;
+		spawn_y = rand() % HEIGHT;
+		int dis_x = abs(player_pos[0] - spawn_x);
+		int dis_y = abs(player_pos[1] - spawn_y);
 
-			if (dis_x >= 200 && dis_y <= 200) {
-				valid = true;
-			}
+		if (dis_x >= 200 && dis_y <= 200) {
+			valid = true;
 		}
+	}
 
-		for (int i = 0; i < 500; i++) {
-			if (enemy_arr[i].state == "") {
-				if (score >= 30) {
-					if (score >= 60) {
-						if (score >= 90) {
-							int type = rand() % 100;
-							if (type > 75) {
-								enemy_arr[i].spawn(4, 10, 3, spawn_x, spawn_y);
-							}
-							else if (type > 50 && type <= 75) {
-								int spawn_x = rand() % WIDTH;
-								int spawn_y = rand() % HEIGHT;
-								enemy_arr[i].spawn(3, 1, 2, spawn_x, spawn_y);
-							}
-							else if (type > 25 && type <= 50) {
-								enemy_arr[i].spawn(2, 1, 1, spawn_x, spawn_y);
-							}
-							else {
-								enemy_arr[i].spawn(1, enemy_spawn_hp, 0, spawn_x, spawn_y);
-							}
-						}
-						else {
-							int type = rand() % 75;
-							if (type > 50) {
-								int spawn_x = rand() % WIDTH;
-								int spawn_y = rand() % HEIGHT;
-								enemy_arr[i].spawn(3, 1, 2, spawn_x, spawn_y);
-							}
-							else if (type > 24 && type <= 50) {
-								enemy_arr[i].spawn(2, 1, 1, spawn_x, spawn_y);
-							}
-							else {
-								enemy_arr[i].spawn(1, enemy_spawn_hp, 0, spawn_x, spawn_y);
-							}
-						}
-					}
-					else {
-						if (rand() % 50 > 24) {
-							enemy_arr[i].spawn(2, 1, 1, spawn_x, spawn_y);
-						}
-						else {
-							enemy_arr[i].spawn(1, enemy_spawn_hp, 0, spawn_x, spawn_y);
-						}
-					}
-				}
-				else {
-					enemy_arr[i].spawn(1, enemy_spawn_hp, 0, spawn_x, spawn_y);
-				}
-				break;
+	for (i = 0; i < 500; i++) {
+		if (enemy_arr[i].state == "") {
+			int type = spawn_pool[rand() % 100];
+			if (type == 1) {
+				enemy_arr[i].spawn(type, enemy_spawn_hp, 0, spawn_x, spawn_y);
 			}
+			else if (type == 2) {
+				enemy_arr[i].spawn(type, 1, 1, spawn_x, spawn_y);
+			}
+			else if (type == 3) {
+				enemy_arr[i].spawn(type, 1, 2, spawn_x, spawn_y);
+			}
+			else if (type == 4) {
+				enemy_arr[i].spawn(type, 5, 3, spawn_x, spawn_y);
+			}
+			break;
 		}
 	}
 }
 
 void Game::reset_collisions() {
-	for (int x = 0; x < WIDTH; x++) {
-		for (int y = 0; y < HEIGHT; y++) {
-			if (gui.get_CollissionMap_Data_at_Pixel(x, y) != 0) {
-				gui.set_CollissionMap_Data_at_Pixel(x, y, 0);
+	for (int check_x = 0; check_x < WIDTH; check_x++) {
+		for (int check_y = 0; check_y < HEIGHT; check_y++) {
+			if (gui.get_CollisionMap_Data_at_Pixel(check_x, check_y) != 0) {
+				gui.set_CollisionMap_Data_at_Pixel(check_x, check_y, 0);
 			}
 		}
 	}
 }
 
 void Game::game_over() {
-	for (int i = 0; i < 500; i++) {
+	for (i = 0; i < 500; i++) {
 		enemy_arr[i].die();
 	}
 	cash += score;

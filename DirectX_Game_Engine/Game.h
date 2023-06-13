@@ -27,9 +27,9 @@ private:
 	uint8_t green_screen[3] = { 10,10,10 };
 	uint8_t grey[3] = { 130,130,130 };
 
-	Image funky_chars = Image("Images/funky_chars.bmp", white, red, 15, 8);
-	Image chars_small = Image("Images/chars.bmp", white, white, 32, 3);
-	Image arrow = Image("Images/Arrow.bmp", green_screen, nullptr, 4, 2);
+	Image funky_chars = Image("Images/funky_chars.bmp", 15, 8, white, red);
+	Image chars_small = Image("Images/chars.bmp", 32, 3, white, white);
+	Image arrow = Image("Images/Arrow.bmp", 4, 2, green_screen, nullptr);
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
 	Sound hurt = Sound(L"./Sounds/523769__matrixxx__retro_hit.wav");
@@ -37,15 +37,15 @@ private:
 	Sound click = Sound(L"./Sounds/Click.wav");
 	Sound click_fail = Sound(L"./Sounds/Click_Fail.wav");
 
-	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
-	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
-	Sprite sword = Sprite(3, "Images/Sword_Attack.bmp", green_screen, nullptr, 3, 8);
-	Sprite shield = Sprite(4, "Images/default_shield.bmp", green_screen, nullptr, 4, 2);
-	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", green_screen, nullptr);
-	Sprite back = Sprite(6, "Images/Back_Button.bmp", green_screen, nullptr);
-	Sprite upgrade_health = Sprite(7, "Images/Health_Button.bmp");
-	Sprite reset = Sprite(8, "Images/Reset_Button.bmp", green_screen);
-	Sprite confirm = Sprite(9, "Images/Confirm_Button.bmp", green_screen);
+	Sprite play = Sprite(1, 1, 1, "Images/Play_Button.bmp", 1, 1, green_screen, nullptr);
+	Sprite player = Sprite(2, 1, 1, "Images/Player.bmp", 3, 1, green_screen, nullptr);
+	Sprite sword = Sprite(3, 1, 1, "Images/Sword_Attack.bmp", 3, 8, green_screen, nullptr);
+	Sprite shield = Sprite(4, 1, 1, "Images/default_shield.bmp", 4, 2, green_screen, nullptr);
+	Sprite shop = Sprite(5, 1, 1, "Images/Shop_Button.bmp", 1, 1, green_screen, nullptr);
+	Sprite back = Sprite(6, 1, 1, "Images/Back_Button.bmp", 1, 1, green_screen, nullptr);
+	Sprite upgrade_health = Sprite(7, 1, 1, "Images/Health_Button.bmp");
+	Sprite reset = Sprite(8, 1, 1, "Images/Reset_Button.bmp", 1, 1, green_screen);
+	Sprite confirm = Sprite(9, 1, 1, "Images/Confirm_Button.bmp", 1, 1, green_screen);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
@@ -75,7 +75,13 @@ private:
 	int score = 0;
 	int cash = 0;
 	int spawn_amount = 1;
-	int spawn_amount_increase = 30;
+	int spawn_amount_increase = 50;
+	int spawn_pool[100];
+	int difficulty_increase = 30;
+	int difficulty = 1;
+	int i = 0;
+	int check_x = 0;
+	int check_y = 0;
 
 	float player_dir = 0;
 	float game_time = 0;
@@ -83,7 +89,6 @@ private:
 	float enemy_spawn_hp = 1;
 	float last_enemy_spawn = 0;
 	float attack_cooldown = -1;
-	float difficulty_timer = 0;
 	float track_time = 0;
 	float frame_time = 0;
 	float tick_60 = 0;

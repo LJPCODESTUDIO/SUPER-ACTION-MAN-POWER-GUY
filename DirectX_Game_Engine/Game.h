@@ -49,7 +49,7 @@ private:
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 
-	Enemy enemy_arr[500];
+	Enemy enemy_arr[200];
 
 	bool start = true;
 	bool store_open = false;
@@ -69,13 +69,19 @@ private:
 	int player_image = 0;
 	int arrow_image = 0;
 	int attack_dir = 0;
-	int player_hp[2] = { 10,100 }; // Stored as an array for Current Health and Max Health
+	int player_hp[2] = { 10,10 }; // Stored as an array for Current Health and Max Health
 	int frames = 0; // Keeps track of amount of frames in entire game
 	int frame = 0; // Will probably need to change the name of this or something, this is what tracks animation frames
 	int score = 0;
 	int cash = 0;
 	int spawn_amount = 1;
-	int spawn_amount_increase = 30;
+	int spawn_amount_increase = 50;
+	int spawn_pool[100];
+	int difficulty_increase = 30;
+	int difficulty = 1;
+	int i = 0;
+	int check_x = 0;
+	int check_y = 0;
 
 	float player_dir = 0;
 	float game_time = 0;

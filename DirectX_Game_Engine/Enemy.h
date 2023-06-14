@@ -23,6 +23,7 @@ private:
 public:
 	int type = NULL;
 	int pos[2] = { NULL,NULL };
+	int move_to[2] = { NULL,NULL };
 	int id = NULL;
 	int sprite_image = 0;
 
@@ -31,8 +32,12 @@ public:
 	float damage_cd = -1;
 	float move_perm[3] = { 1,1,1 };
 	float attack_cd = -1;
+	float move_timer = 3;
+	float dis_x;
+	float dis_y;
 
 	bool init = true;
+	bool moving = false;
 
 	std::string state = "";
 
@@ -43,7 +48,7 @@ public:
 
 	void spawn(int _type, float _hp, int _image, int _start_x, int _start_y);
 
-	void move(int player[], bool hitting_shield);
+	void move(int player[], bool hitting_shield, float time);
 
 	void die();
 };

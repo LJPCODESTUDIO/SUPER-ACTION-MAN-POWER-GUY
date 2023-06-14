@@ -22,22 +22,52 @@ void Enemy::spawn(int _type, float _hp, int _image, int _start_x, int _start_y) 
 	init = true;
 }
 
-void Enemy::move(int player[], bool hitting_shield) {
+void Enemy::move(int player[], bool hitting_shield, float time) {
 	if (type == 1) {
+		if (init) {
+			move_timer = time;
+		}
+		if (time - move_timer >= 5) {
+			srand(rand());
+			move_to[0] = rand() % 1024;
+			move_to[1] = rand() % 900;
+			moving = true;
+			move_timer = time;
+		}
 		init = false;
-		float dis_x = player[0] - pos[0];
-		float dis_y = player[1] - pos[1];
+		if (moving) {
+			dis_x = move_to[0] - pos[0];
+			dis_y = move_to[1] - pos[1];
+			if (abs(dis_x) < 10 && abs(dis_y) < 10) {
+				moving = false;
+				dis_x = player[0] - pos[0];
+				dis_y = player[1] - pos[1];
+			}
+		}
+		else {
+			dis_x = player[0] - pos[0];
+			dis_y = player[1] - pos[1];
+		}
 		float hyp = sqrtf(dis_x * dis_x + dis_y * dis_y);
 		if (hyp != 0) {
 			dis_x /= hyp;
 			dis_y /= hyp;
 		}
 
-		if (!hitting_shield) {
-			pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
+
+		if (moving) {
+			pos[0] += round(dis_x * 9); pos[1] += round(dis_y * 9);
 		}
 		else {
-			pos[0] -= round(dis_x * 7); pos[1] -= round(dis_y * 7);
+			pos[0] += round(dis_x * 6); pos[1] += round(dis_y * 6);
+		}
+		if (hitting_shield) {
+			if (moving) {
+				pos[0] -= round(dis_x * 10); pos[1] += round(dis_y * 10);
+			}
+			else {
+				pos[0] -= round(dis_x * 7); pos[1] += round(dis_y * 7);
+			}
 		}
 
 		if (pos[0] >= 995) {
@@ -73,16 +103,16 @@ void Enemy::move(int player[], bool hitting_shield) {
 				pos[0] -= round(move_perm[0] * 16); pos[1] -= round(move_perm[1] * 16);
 			}
 			if (pos[0] >= 995) {
-				die();
+				hp--;
 			}
 			if (pos[0] <= 0) {
-				die();
+				hp--;
 			}
 			if (pos[1] >= 870) {
-				die();
+				hp--;
 			}
 			if (pos[1] <= 0) {
-				die();
+				hp--;
 			}
 		}
 

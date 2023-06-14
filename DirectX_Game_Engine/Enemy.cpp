@@ -104,15 +104,19 @@ void Enemy::move(int player[], bool hitting_shield, float time) {
 			}
 			if (pos[0] >= 995) {
 				hp--;
+				init = false;
 			}
 			if (pos[0] <= 0) {
 				hp--;
+				init = false;
 			}
 			if (pos[1] >= 870) {
 				hp--;
+				init = false;
 			}
 			if (pos[1] <= 0) {
 				hp--;
+				init = false;
 			}
 		}
 

@@ -244,10 +244,28 @@ void Game::store() {
 	gui.set_Sprite_at_Pixel(20, 20, back);
 	write("Cash: " + std::to_string(cash), (WIDTH / 2) - (15 * (3 + (std::to_string(cash).length() / 2))), 0, "chars_small");
 
-	write("Price: " + std::to_string(player_hp[1]), 110, 259, "chars_small");
+	// HP
+	upgrade_prices[0] = player_hp[1] + 2;
+	write("Price: " + std::to_string(upgrade_prices[0]), 110, 259, "chars_small");
 	write("Current: " + std::to_string(player_hp[1]), 110, 284, "chars_small");
-	write("New: " + std::to_string(player_hp[1]+2), 110, 309, "chars_small");
+	write("New: " + std::to_string(player_hp[1] + 2), 110, 309, "chars_small");
 	gui.set_Sprite_at_Pixel(110, 180, upgrade_health);
+
+	// Damage
+	write("Price: " + std::to_string(upgrade_prices[1]), 410, 259, "chars_small");
+	write("Current: " + std::to_string(attack_multiplier).erase(3), 410, 284, "chars_small");
+	write("New: " + std::to_string(attack_multiplier * 1.3).erase(3), 410, 309, "chars_small");
+	gui.set_Sprite_at_Pixel(410, 180, damage_upgrade);
+
+	// Speed
+	write("Price: " + std::to_string(upgrade_prices[2]), 710, 259, "chars_small");
+	write("Current: " + std::to_string(player_speed), 710, 284, "chars_small");
+	write("New: " + std::to_string(player_speed + 1), 710, 309, "chars_small");
+	gui.set_Sprite_at_Pixel(710, 180, speed_upgrade);
+
+	// Weapons
+	write("Current Weapon: " + weapon, (WIDTH / 2) - (15 * (8 + (weapon.length() / 2))), 400, "chars_small");
+	write("Current Utility: " + tool, (WIDTH / 2) - (15 * (9 + (tool.length() / 2))), 425, "chars_small");
 
 	if (window.mouse.LeftIsPressed()) {
 		uint8_t collision = gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY());
@@ -256,10 +274,36 @@ void Game::store() {
 			store_open = false;
 		}
 		else if (collision == 7) {
-			if (cash >= player_hp[1]) {
+			if (cash >= upgrade_prices[0]) {
 				click.Play();
-				cash -= player_hp[1];
+				cash -= upgrade_prices[0];
 				player_hp[1] += 2;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 11) {
+			if (cash >= upgrade_prices[1]) {
+				click.Play();
+				cash -= upgrade_prices[1];
+				attack_cooldown = attack_cooldown * 1.3;
+				upgrade_prices[1] += 100;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 10) {
+			if (cash >= upgrade_prices[2]) {
+				click.Play();
+				cash -= upgrade_prices[2];
+				player_speed++;
+				upgrade_prices[2] += 50;
 				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
 			}
 			else {
@@ -308,14 +352,38 @@ void Game::check_time_and_fps(float last_tick_60) {
 void Game::key_press() {
 	if (gui.get_Gui_Elem() == 1) {
 		// Player stuff
-		float dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
-		float dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
+		dir_x = window.kbd.KeyIsPressed(0x44) - window.kbd.KeyIsPressed(0x41);
+		dir_y = window.kbd.KeyIsPressed(0x53) - window.kbd.KeyIsPressed(0x57);
 
-		if (dir_x > 0) {
-			player_image = 2;
+		if (dir_y == -1) {
+			if (dir_x == 1) {
+				player_image = 8;
+			}
+			else if (dir_x == -1) {
+				player_image = 7;
+			}
+			else {
+				player_image = 1;
+			}
 		}
-		else if (dir_x < 0) {
-			player_image = 1;
+		else if (dir_y == 1) {
+			if (dir_x == 1) {
+				player_image = 6;
+			}
+			else if (dir_x == -1) {
+				player_image = 5;
+			}
+			else {
+				player_image = 2;
+			}
+		}
+		else if (dir_y == 0) {
+			if (dir_x == 1) {
+				player_image = 3;
+			}
+			else if (dir_x == -1) {
+				player_image = 4;
+			}
 		}
 
 		float hyp = sqrtf(dir_x * dir_x + dir_y * dir_y);
@@ -325,8 +393,8 @@ void Game::key_press() {
 		}
 
 		if (!shielding) {
-			player_pos[0] += round(dir_x * 7);
-			player_pos[1] += round(dir_y * 7);
+			player_pos[0] += round(dir_x * player_speed);
+			player_pos[1] += round(dir_y * player_speed);
 		}
 		else {
 			player_pos[0] += round(dir_x * 6);

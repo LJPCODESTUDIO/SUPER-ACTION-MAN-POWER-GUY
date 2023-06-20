@@ -24,12 +24,12 @@ private:
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
 	uint8_t green[3] = { 186, 254, 202 };
-	uint8_t green_screen[3] = { 10,10,10 };
+	uint8_t grey_screen[3] = { 2,2,2 };
 	uint8_t grey[3] = { 130,130,130 };
 
 	Image funky_chars = Image("Images/funky_chars.bmp", white, red, 15, 8);
 	Image chars_small = Image("Images/chars.bmp", white, white, 32, 3);
-	Image arrow = Image("Images/Arrow.bmp", green_screen, nullptr, 4, 2);
+	Image arrow = Image("Images/Arrow.bmp", grey_screen, nullptr, 4, 2);
 
 	Sound track_1 = Sound(L"./Sounds/Hiding Your Reality.wav");
 	Sound hurt = Sound(L"./Sounds/523769__matrixxx__retro_hit.wav");
@@ -37,17 +37,21 @@ private:
 	Sound click = Sound(L"./Sounds/Click.wav");
 	Sound click_fail = Sound(L"./Sounds/Click_Fail.wav");
 
-	Sprite play = Sprite(1, "Images/Play_Button.bmp", green_screen, nullptr);
-	Sprite player = Sprite(2, "Images/Player.bmp", green_screen, nullptr, 3, 1);
-	Sprite sword = Sprite(3, "Images/Sword_Attack.bmp", green_screen, nullptr, 3, 8);
-	Sprite shield = Sprite(4, "Images/default_shield.bmp", green_screen, nullptr, 4, 2);
-	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", green_screen, nullptr);
-	Sprite back = Sprite(6, "Images/Back_Button.bmp", green_screen, nullptr);
+	Sprite play = Sprite(1, "Images/Play_Button.bmp", grey_screen, nullptr);
+	Sprite player = Sprite(2, "Images/34x34sprites.bmp", grey_screen, nullptr, 9, 1);
+	Sprite sword = Sprite(3, "Images/swordsprites.bmp", grey_screen, nullptr, 3, 8);
+	Sprite shield = Sprite(4, "Images/shield1sprites.bmp", grey_screen, nullptr, 4, 2);
+	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", grey_screen, nullptr);
+	Sprite back = Sprite(6, "Images/Back_Button.bmp", grey_screen, nullptr);
 	Sprite upgrade_health = Sprite(7, "Images/Health_Button.bmp");
-	Sprite reset = Sprite(8, "Images/Reset_Button.bmp", green_screen);
-	Sprite confirm = Sprite(9, "Images/Confirm_Button.bmp", green_screen);
+	Sprite reset = Sprite(8, "Images/Reset_Button.bmp", grey_screen);
+	Sprite confirm = Sprite(9, "Images/Confirm_Button.bmp", grey_screen);
+	Sprite speed_upgrade = Sprite(10, "Images/Speed_Upgrade.bmp", grey_screen);
+	Sprite damage_upgrade = Sprite(11, "Images/Damage_Upgrade.bmp", grey_screen);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
+	std::string weapon = "Sword";
+	std::string tool = "Shield";
 
 	Enemy enemy_arr[200];
 
@@ -82,7 +86,30 @@ private:
 	int i = 0;
 	int check_x = 0;
 	int check_y = 0;
+	int player_speed = 7;
+	int spawn_selected = -1; // Which item spawn(medkit/mine) is selected, -1 if none
+	int item_spawn_pool[100];
+	int upgrade_prices[4] = {
+		12, // HP
+		100, // Attack Multiplier
+		50, // Speed
+		75, // Medkit/Mine spawn chance
+	};
+	// If price is 0, that weapon/tool is unlocked
+	int weapon_prices[3] = {
+		0, // Sword
+		50, // Bat
+		100 // Claymore
+	};
+	int tool_prices[3] = {
+		0, // Normal Shield
+		50, // Large Shield
+		100 // Thorned Shield
+	};
 
+
+	float attack_multiplier = 1.00;
+	float damage = 1;
 	float player_dir = 0;
 	float game_time = 0;
 	float enemy_spawn_cd = 3;
@@ -93,7 +120,10 @@ private:
 	float track_time = 0;
 	float frame_time = 0;
 	float tick_60 = 0;
+	float item_delay = 3;
 	float delta = 0;
+	float dir_x = 0;
+	float dir_y = 0;
 
 	void start_game();
 

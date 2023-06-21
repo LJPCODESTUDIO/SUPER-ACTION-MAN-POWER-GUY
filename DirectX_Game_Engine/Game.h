@@ -48,10 +48,19 @@ private:
 	Sprite confirm = Sprite(9, "Images/Confirm_Button.bmp", grey_screen);
 	Sprite speed_upgrade = Sprite(10, "Images/Speed_Upgrade.bmp", grey_screen);
 	Sprite damage_upgrade = Sprite(11, "Images/Damage_Upgrade.bmp", grey_screen);
+	Sprite item_upgrade = Sprite(12, "Images/Item_Upgrade.bmp", grey_screen);
+	Sprite switch_item = Sprite(13, "Images/Switch_Item.bmp", grey_screen);
+	Sprite sword_button = Sprite(14, "Images/Sword.bmp", grey_screen);
+	Sprite bat_button = Sprite(15, "Images/Bat.bmp", grey_screen);
+	Sprite claymore_button = Sprite(16, "Images/Claymore.bmp", grey_screen);
+	Sprite shield_button = Sprite(17, "Images/Shield.bmp", grey_screen);
+	Sprite big_shield_button = Sprite(18, "Images/Big_Shield.bmp", grey_screen);
+	Sprite thorned_shield_button = Sprite(19, "Images/Thorned_Shield.bmp", grey_screen);
 
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 	std::string weapon = "Sword";
 	std::string tool = "Shield";
+	std::string item_selected = "Medkit";
 
 	Enemy enemy_arr[200];
 
@@ -64,6 +73,7 @@ private:
 	bool shielding = false;
 	bool game_over_check = true;
 	bool confirm_reset = false;
+	bool item_spawn_pool[100];
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;
@@ -87,8 +97,7 @@ private:
 	int check_x = 0;
 	int check_y = 0;
 	int player_speed = 7;
-	int spawn_selected = -1; // Which item spawn(medkit/mine) is selected, -1 if none
-	int item_spawn_pool[100];
+	int item_spawn_chance = 0;
 	int upgrade_prices[4] = {
 		12, // HP
 		100, // Attack Multiplier
@@ -124,6 +133,12 @@ private:
 	float delta = 0;
 	float dir_x = 0;
 	float dir_y = 0;
+	float thorned_shield_cd = -1;
+	float weapon_cooldowns[3] = {
+		1,
+		2,
+		3
+	};
 
 	void start_game();
 

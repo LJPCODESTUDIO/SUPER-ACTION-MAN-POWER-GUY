@@ -12,8 +12,11 @@ void Game::game_loop() {
 		gui.set_RGB_on_Gui(black);
 		initial = false;
 		track_1.Play();
-		for (int i = 0; i < 200; i++) {
+		for (i = 0; i < 200; i++) {
 			enemy_arr[i].id = i;
+		}
+		for (i = 0; i < 100; i++) {
+			item_spawn_pool[i] = false;
 		}
 	}
 	srand(rand());
@@ -252,20 +255,75 @@ void Game::store() {
 	gui.set_Sprite_at_Pixel(110, 180, upgrade_health);
 
 	// Damage
-	write("Price: " + std::to_string(upgrade_prices[1]), 410, 259, "chars_small");
-	write("Current: " + std::to_string(attack_multiplier).erase(3), 410, 284, "chars_small");
-	write("New: " + std::to_string(attack_multiplier * 1.3).erase(3), 410, 309, "chars_small");
-	gui.set_Sprite_at_Pixel(410, 180, damage_upgrade);
+	write("Price: " + std::to_string(upgrade_prices[1]), 330, 259, "chars_small");
+	write("Current: " + std::to_string(attack_multiplier).erase(3), 330, 284, "chars_small");
+	write("New: " + std::to_string(attack_multiplier * 1.3).erase(3), 330, 309, "chars_small");
+	gui.set_Sprite_at_Pixel(330, 180, damage_upgrade);
 
 	// Speed
-	write("Price: " + std::to_string(upgrade_prices[2]), 710, 259, "chars_small");
-	write("Current: " + std::to_string(player_speed), 710, 284, "chars_small");
-	write("New: " + std::to_string(player_speed + 1), 710, 309, "chars_small");
-	gui.set_Sprite_at_Pixel(710, 180, speed_upgrade);
+	write("Price: " + std::to_string(upgrade_prices[2]), 550, 259, "chars_small");
+	write("Current: " + std::to_string(player_speed), 550, 284, "chars_small");
+	write("New: " + std::to_string(player_speed + 1), 550, 309, "chars_small");
+	gui.set_Sprite_at_Pixel(550, 180, speed_upgrade);
+
+	// Item
+	if (item_spawn_chance < 100) {
+		write("Price: " + std::to_string(upgrade_prices[3]), 770, 259, "chars_small");
+		write("Current: " + std::to_string(item_spawn_chance) + "%", 770, 284, "chars_small");
+		write("New: " + std::to_string(item_spawn_chance + 5) + "%", 770, 309, "chars_small");
+		gui.set_Sprite_at_Pixel(770, 180, item_upgrade);
+	}
+	else {
+		write("Price: MAX", 770, 259, "chars_small");
+		write("Current: " + std::to_string(item_spawn_chance) + "%", 770, 284, "chars_small");
+		write("New: MAX", 770, 309, "chars_small");
+		gui.set_Sprite_at_Pixel(770, 180, item_upgrade);
+	}
+
+	gui.set_Sprite_at_Pixel((WIDTH / 2) - 69, 90, switch_item);
+	write("Current: " + item_selected, (WIDTH / 2) - (15 * (4 + (tool.length() / 2))), 65, "chars_small");
 
 	// Weapons
 	write("Current Weapon: " + weapon, (WIDTH / 2) - (15 * (8 + (weapon.length() / 2))), 400, "chars_small");
-	write("Current Utility: " + tool, (WIDTH / 2) - (15 * (9 + (tool.length() / 2))), 425, "chars_small");
+	write("Current Utility: " + tool, (WIDTH / 2) - (15 * (8 + (tool.length() / 2))), 425, "chars_small");
+
+	gui.set_Sprite_at_Pixel(110, 480, sword_button);
+	write("Purchased", 250, 507, "chars_small");
+
+	gui.set_Sprite_at_Pixel(110, 600, bat_button);
+	if (weapon_prices[1] > 0) {
+		write("Price: " + std::to_string(weapon_prices[1]), 250, 627, "chars_small");
+	}
+	else {
+		write("Purchased", 250, 627, "chars_small");
+	}
+
+	gui.set_Sprite_at_Pixel(110, 720, claymore_button);
+	if (weapon_prices[2] > 0) {
+		write("Price: " + std::to_string(weapon_prices[2]), 250, 747, "chars_small");
+	}
+	else {
+		write("Purchased", 250, 747, "chars_small");
+	}
+
+	gui.set_Sprite_at_Pixel(770, 480, shield_button);
+	write("Purchased", 635, 507, "chars_small");
+
+	gui.set_Sprite_at_Pixel(770, 600, big_shield_button);
+	if (tool_prices[1] > 0) {
+		write("Price: " + std::to_string(weapon_prices[1]), 635, 627, "chars_small");
+	}
+	else {
+		write("Purchased", 635, 627, "chars_small");
+	}
+
+	gui.set_Sprite_at_Pixel(770, 720, thorned_shield_button);
+	if (tool_prices[2] > 0) {
+		write("Price: " + std::to_string(weapon_prices[2]), 620, 747, "chars_small");
+	}
+	else {
+		write("Purchased", 635, 747, "chars_small");
+	}
 
 	if (window.mouse.LeftIsPressed()) {
 		uint8_t collision = gui.get_CollissionMap_Data_at_Pixel(window.mouse.GetPosX(), window.mouse.GetPosY());
@@ -311,8 +369,115 @@ void Game::store() {
 				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
 			}
 		}
+		else if (collision == 12) {
+			if (cash >= upgrade_prices[3] && item_spawn_chance < 100) {
+				click.Play();
+				cash -= upgrade_prices[3];
+				item_spawn_chance += 5;
+				for (i = 0; i < item_spawn_chance; i++) {
+					item_spawn_pool[i] = true;
+				}
+				upgrade_prices[3] += 25;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 13) {
+			click.Play();
+			if (item_selected == "Medkit") {
+				item_selected = "Mine";
+			}
+			else {
+				item_selected = "Medkit";
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+		}
+		else if (collision == 14) {
+			click.Play();
+			weapon = "Sword";
+			std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+		}
+		else if (collision == 15) {
+			if (weapon_prices[1] == 0) {
+				click.Play();
+				weapon = "Bat";
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else if (cash >= weapon_prices[1]) {
+				click.Play();
+				cash -= weapon_prices[1];
+				weapon = "Bat";
+				weapon_prices[1] = 0;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 16) {
+			if (weapon_prices[2] == 0) {
+				click.Play();
+				weapon = "Claymore";
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else if (cash >= weapon_prices[2]) {
+				click.Play();
+				cash -= weapon_prices[2];
+				weapon = "Claymore";
+				weapon_prices[2] = 0;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 17) {
+			click.Play();
+			tool = "Shield";
+			std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+		}
+		else if (collision == 18) {
+			if (tool_prices[1] == 0) {
+				click.Play();
+				tool = "Big Shield";
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else if (cash >= tool_prices[1]) {
+				click.Play();
+				cash -= tool_prices[1];
+				tool = "Big Shield";
+				tool_prices[1] = 0;
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+			else {
+				click_fail.Play();
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+			}
+		}
+		else if (collision == 19) {
+				if (tool_prices[2] == 0) {
+					click.Play();
+					tool = "Thorned Shield";
+					std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+				}
+				else if (cash >= tool_prices[2]) {
+					click.Play();
+					cash -= tool_prices[2];
+					tool = "Thorned Shield";
+					tool_prices[2] = 0;
+					std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+				}
+				else {
+					click_fail.Play();
+					std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
+				}
+		}
 	}
-
 	gui.refresh_Gui();
 }
 

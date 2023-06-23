@@ -7,6 +7,7 @@
 #include <time.h>
 #include <cmath>
 #include "Enemy.h"
+#include "Item.h"
 
 class Game {
 private:
@@ -39,8 +40,6 @@ private:
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", grey_screen, nullptr);
 	Sprite player = Sprite(2, "Images/34x34sprites.bmp", grey_screen, nullptr, 9, 1);
-	Sprite sword = Sprite(3, "Images/swordsprites.bmp", grey_screen, nullptr, 3, 8);
-	Sprite shield = Sprite(4, "Images/shield1sprites.bmp", grey_screen, nullptr, 4, 2);
 	Sprite shop = Sprite(5, "Images/Shop_Button.bmp", grey_screen, nullptr);
 	Sprite back = Sprite(6, "Images/Back_Button.bmp", grey_screen, nullptr);
 	Sprite upgrade_health = Sprite(7, "Images/Health_Button.bmp");
@@ -57,12 +56,25 @@ private:
 	Sprite big_shield_button = Sprite(18, "Images/Big_Shield.bmp", grey_screen);
 	Sprite thorned_shield_button = Sprite(19, "Images/Thorned_Shield.bmp", grey_screen);
 
+	// Weapons
+	Sprite sword = Sprite(3, "Images/swordsprites.bmp", grey_screen, nullptr, 3, 8);
+	Sprite bat = Sprite(20, "Images/batsprites.bmp", grey_screen, nullptr, 3, 8);
+	Sprite claymore_swing = Sprite(21, "Images/claymoresprites.bmp", grey_screen, nullptr, 8, 1);
+	Sprite claymore = Sprite(22, "Images/claymorespriteswosmear.bmp", grey_screen, nullptr, 8, 1);
+
+	// Shields
+	Sprite shield = Sprite(4, "Images/shield1sprites.bmp", grey_screen, nullptr, 4, 2);
+	Sprite big_shield = Sprite(23, "Images/largeshield.bmp", grey_screen, nullptr, 4, 2);
+	Sprite thorned_shield = Sprite(24, "Images/thornshield.bmp", grey_screen, nullptr, 4, 2);
+
 	std::string chars_map = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~ ";
 	std::string weapon = "Sword";
 	std::string tool = "Shield";
 	std::string item_selected = "Medkit";
 
 	Enemy enemy_arr[200];
+
+	Item item_arr[100];
 
 	bool start = true;
 	bool store_open = false;
@@ -74,6 +86,9 @@ private:
 	bool game_over_check = true;
 	bool confirm_reset = false;
 	bool item_spawn_pool[100];
+	bool control = true;
+	bool thorn_dash = false;
+	bool dash_check = false;
 
 	int WIDTH = 1024;
 	int HEIGHT = 900;
@@ -87,7 +102,7 @@ private:
 	int frames = 0; // Keeps track of amount of frames in entire game
 	int frame = 0; // Will probably need to change the name of this or something, this is what tracks animation frames
 	int score = 0;
-	int cash = 0;
+	int cash = 9999;
 	int spawn_amount = 1;
 	int spawn_amount_increase = 50;
 	int spawn_pool[100];
@@ -115,6 +130,11 @@ private:
 		50, // Large Shield
 		100 // Thorned Shield
 	};
+	int weapon_id = 3;
+	int tool_id = 4;
+	int claymore_frame = 0;
+	int claymore_anim = 0;
+	int claymore_rotate = 0;
 
 
 	float attack_multiplier = 1.00;
@@ -124,21 +144,18 @@ private:
 	float enemy_spawn_cd = 3;
 	float enemy_spawn_hp = 1;
 	float last_enemy_spawn = 0;
-	float attack_cooldown = -1;
+	float attack_cooldown = -5;
 	float difficulty_timer = 0;
 	float track_time = 0;
 	float frame_time = 0;
 	float tick_60 = 0;
-	float item_delay = 3;
+	float item_spawn_cd = 0;
 	float delta = 0;
 	float dir_x = 0;
 	float dir_y = 0;
 	float thorned_shield_cd = -1;
-	float weapon_cooldowns[3] = {
-		1,
-		2,
-		3
-	};
+	float thorned_shield_dash = 0;
+	float weapon_cooldown = 1;
 
 	void start_game();
 
@@ -155,6 +172,8 @@ private:
 	void game_over();
 
 	void store();
+
+	void spawn_item();
 
 public:
 	Game(class MainWindow& _app_window);

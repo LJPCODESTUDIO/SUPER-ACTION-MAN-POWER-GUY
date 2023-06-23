@@ -153,6 +153,7 @@
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="RBG_Data.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Keyboard.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="MainWindow.cpp" />

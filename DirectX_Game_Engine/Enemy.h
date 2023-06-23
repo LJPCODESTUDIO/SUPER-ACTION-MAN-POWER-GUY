@@ -13,7 +13,7 @@ private:
 	uint8_t white[3] = { 255,255,255 };
 	uint8_t black[3] = { 0,0,0 };
 	uint8_t yellow[3] = { 200,200,0 };
-	uint8_t red[3] = { 255, 0, 0 };
+	uint8_t red[3] = { 233,67,67 };
 	uint8_t orange[3] = { 255,67,36 };
 	uint8_t blue[3] = { 0, 165, 255 };
 	uint8_t pink[3] = { 255,0,231 };
@@ -41,7 +41,7 @@ public:
 
 	std::string state = "";
 
-	Sprite entity = Sprite(rand()+50, "Images/Entity.bmp", green_screen, nullptr, 4);
+	Sprite entity = Sprite(50, "Images/Entity.bmp", green_screen, nullptr, 4);
 
 	Enemy();
 	~Enemy();

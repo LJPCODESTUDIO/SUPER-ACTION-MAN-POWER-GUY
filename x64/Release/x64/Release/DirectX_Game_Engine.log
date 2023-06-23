@@ -1,0 +1,15 @@
+﻿  Game.cpp
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(263,127): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(264,125): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(265,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(379,121): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(415,111): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(418,105): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(419,102): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(617,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(621,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 1316 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  DirectX_Game_Engine.vcxproj -> D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\x64\Release\DirectX_Game_Engine.exe

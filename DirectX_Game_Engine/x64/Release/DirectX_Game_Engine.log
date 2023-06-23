@@ -1,16 +1,16 @@
 ﻿  Game.cpp
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(166,127): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(167,125): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(168,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(248,121): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(284,102): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(287,105): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(288,102): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(407,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
-D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(411,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(297,127): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(298,125): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(299,215): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(413,121): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(449,111): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(452,105): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(453,102): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(651,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
+D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\DirectX_Game_Engine\Game.cpp(655,101): warning C4267: 'argument': conversion from 'size_t' to 'uint8_t', possible loss of data
   Generating code
-  1 of 1312 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 1317 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+    12 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   DirectX_Game_Engine.vcxproj -> D:\Coding Stuff\SUPER-ACTION-MAN-POWER-GUY\x64\Release\DirectX_Game_Engine.exe

@@ -66,7 +66,7 @@ void Enemy::move(int player[], bool hitting_shield, float time) {
 				pos[0] -= round(dis_x * 10); pos[1] += round(dis_y * 10);
 			}
 			else {
-				pos[0] -= round(dis_x * 7); pos[1] += round(dis_y * 7);
+				pos[0] -= round(dis_x * 7); pos[1] -= round(dis_y * 7);
 			}
 		}
 

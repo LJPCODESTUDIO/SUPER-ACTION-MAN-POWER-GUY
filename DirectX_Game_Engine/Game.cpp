@@ -15,9 +15,6 @@ void Game::game_loop() {
 		for (i = 0; i < 200; i++) {
 			enemy_arr[i].id = i;
 		}
-		for (i = 0; i < 100; i++) {
-			item_spawn_pool[i] = false;
-		}
 	}
 	srand(rand());
 	if (game_time - track_time >= 192) {
@@ -69,30 +66,140 @@ void Game::game_loop() {
 		}
 		last_enemy_spawn = game_time;
 	}
+	if (game_time - item_spawn_cd >= 5) {
+		spawn_item();
+		item_spawn_cd = game_time;
+	}
 
 	player_image = 0;
 	key_press();
-	gui.set_Image_at_Pixel(player_pos[0] - 8, player_pos[1] - 8, arrow[arrow_image]);
+	gui.set_Image_at_Pixel(player_pos[0] - 8, player_pos[1] - 9, arrow[arrow_image]);
 	gui.set_Sprite_at_Pixel(player_pos[0], player_pos[1], player[player_image]);
 
 	if (swing) {
-		if (frames - frame >= 3) {
-			swing = false;
-		}
-		else {
-			if (frames - frame == 1) {
-				damage_enemy = true;
+		if (weapon == "Sword" || weapon == "Bat") {
+			if (frames - frame >= 3) {
+				swing = false;
 			}
 			else {
-				damage_enemy = false;
+				if (frames - frame == 1) {
+					damage_enemy = true;
+				}
+				else {
+					damage_enemy = false;
+				}
+				if (weapon == "Sword") {
+					gui.set_Sprite_at_Pixel(player_pos[0] - 50, player_pos[1] - 50, sword[(frames - frame) + (3 * attack_dir)]);
+				}
+				else {
+					gui.set_Sprite_at_Pixel(player_pos[0] - 50, player_pos[1] - 50, bat[(frames - frame) + (3 * attack_dir)]);
+				}
 			}
-			gui.set_Sprite_at_Pixel(player_pos[0]-50, player_pos[1]-50, sword[(frames - frame) + (3 * attack_dir)]);
+		}
+		else if (weapon == "Claymore") {
+			if (frames - frame < 3 && claymore_anim == 0) {
+				claymore_frame = -1;
+			}
+			else if (claymore_anim == 2) {
+				if (frames - frame < 3) {
+					claymore_frame = -1;
+				}
+				else {
+					swing = false;
+					attack_cooldown = game_time;
+				}
+			}
+			else {
+				if (claymore_frame == -1) {
+					claymore_frame = 0;
+					damage_enemy = true;
+					claymore_anim = 1;
+					claymore_rotate = 0;
+				}
+				claymore_frame++;
+				if (claymore_frame > 8) {
+					claymore_frame = 0;
+					claymore_rotate++;
+				}
+				if (claymore_rotate == 3) {
+					damage_enemy = false;
+					claymore_anim = 2;
+					frame = frames;
+				}
+				if (claymore_frame > 8) {
+					damage_enemy = false;
+					claymore_anim = 2;
+					frame = frames;
+				}
+				if (claymore_frame == 0) {
+					attack_dir = 0;
+				}
+				else if (claymore_frame == 1) {
+					attack_dir = 7;
+				}
+				else if (claymore_frame == 2) {
+					attack_dir = 1;
+				}
+				else if (claymore_frame == 3) {
+					attack_dir = 6;
+				}
+				else if (claymore_frame == 4) {
+					attack_dir = 2;
+				}
+				else if (claymore_frame == 5) {
+					attack_dir = 4;
+				}
+				else if (claymore_frame == 6) {
+					attack_dir = 3;
+				}
+				else if (claymore_frame == 7) {
+					attack_dir = 5;
+				}
+				else if (claymore_frame == 8) {
+					attack_dir = 0;
+				}
+			}
+			if (claymore_frame < 0) {
+				gui.set_Sprite_at_Pixel(player_pos[0] - 100, player_pos[1] - 100, claymore[0]);
+			}
+			else if (swing) {
+				gui.set_Sprite_at_Pixel(player_pos[0] - 100, player_pos[1] - 100, claymore_swing[attack_dir]);
+			}
 		}
 	}
 	if (shielding) {
-		gui.set_Sprite_at_Pixel(player_pos[0] - 16, player_pos[1] - 16, shield[arrow_image]);
+		if (tool == "Shield") {
+			gui.set_Sprite_at_Pixel(player_pos[0] - 16, player_pos[1] - 16, shield[arrow_image]);
+		}
+		else if (tool == "Big Shield") {
+			gui.set_Sprite_at_Pixel(player_pos[0] - 16, player_pos[1] - 16, big_shield[arrow_image]);
+		}
+		else if (tool == "Thorned Shield") {
+			gui.set_Sprite_at_Pixel(player_pos[0] - 16, player_pos[1] - 16, thorned_shield[attack_dir]);
+		}
 	}
 
+	for (i = 0; i < 100; i++) {
+		if (item_arr[i].type != 0) {
+			if (item_arr[i].type == 1) {
+				gui.set_Sprite_at_Pixel(item_arr[i].x, item_arr[i].y, item_arr[i].medkit);
+			}
+			else {
+				gui.set_Sprite_at_Pixel(item_arr[i].x, item_arr[i].y, item_arr[i].mine);
+			}
+			for (check_x = 0; check_x < 32; check_x++) {
+				for (check_y = 0; check_y < 32; check_y++) {
+					if (item_arr[i].x + check_x < 0 || item_arr[i].y + check_y < 0 || item_arr[i].x + check_x > 995 || item_arr[i].y + check_y > 870) {
+						continue;
+					}
+					if (gui.get_CollissionMap_Data_at_Pixel(item_arr[i].x + check_x, item_arr[i].y + check_y) == 2 && item_arr[i].type == 1) {
+						player_hp[0] = player_hp[1];
+						item_arr[i].remove();
+					}
+				}
+			}
+		}
+	}
 	for (i = 0; i < 200; i++) {
 		if (enemy_arr[i].state != "") {
 			bool hitting_shield = false;
@@ -101,7 +208,11 @@ void Game::game_loop() {
 					if (enemy_arr[i].pos[0] + check_x < 0 || enemy_arr[i].pos[1] + check_y < 0 || enemy_arr[i].pos[0] + check_x > 995 || enemy_arr[i].pos[1] + check_y > 870) {
 						continue;
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 4) {
+					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == tool_id) {
+						if (tool == "Thorned Shield" && thorn_dash) {
+							hurt.Play();
+							enemy_arr[i].die();
+						}
 						hitting_shield = true;
 						break;
 					}
@@ -119,7 +230,7 @@ void Game::game_loop() {
 					if (enemy_arr[i].pos[0] + check_x < 0 || enemy_arr[i].pos[1] + check_y < 0 || enemy_arr[i].pos[0] + check_x > 995 || enemy_arr[i].pos[1] + check_y > 870) {
 						continue;
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0]+ check_x, enemy_arr[i].pos[1]+ check_y) == 2) {
+					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0]+ check_x, enemy_arr[i].pos[1]+ check_y) == 2 && !hitting_shield) {
 						if (game_time - enemy_arr[i].attack_cd >= .5) {
 							hurt.Play();
 							enemy_arr[i].attack_cd = game_time;
@@ -138,11 +249,11 @@ void Game::game_loop() {
 							}
 						}
 					}
-					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 3 && damage_enemy) {
+					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == weapon_id && damage_enemy) {
 						if (game_time - enemy_arr[i].damage_cd >= .1) {
 							hurt.Play();
 							enemy_arr[i].damage_cd = game_time;
-							enemy_arr[i].hp -= 1;
+							enemy_arr[i].hp -= damage * attack_multiplier;
 							enemy_arr[i].entity.set_Find_Replace_RGB(red, white);
 							if (enemy_arr[i].hp <= 0) {
 								enemy_arr[i].die();
@@ -157,6 +268,24 @@ void Game::game_loop() {
 								}
 							}
 						}
+					}
+					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 26) {
+						hurt.Play();
+						for (int j = 0; j < 100; j++) {
+							if (item_arr[j].type == 2) {
+								for (int _check_x = 0; _check_x < 32; _check_x++) {
+									for (int _check_y = 0; _check_y < 32; _check_y++) {
+										if (item_arr[j].x + _check_x < 0 || item_arr[j].y + _check_y < 0 || item_arr[j].x + _check_x > 995 || item_arr[j].y + _check_y > 870) {
+											continue;
+										}
+										if (gui.get_CollissionMap_Data_at_Pixel(item_arr[j].x + _check_x, item_arr[j].y + _check_y) == 50) {
+											item_arr[j].remove();
+										}
+									}
+								}
+							}
+						}
+						enemy_arr[i].die();
 					}
 				}
 			}
@@ -209,8 +338,42 @@ void Game::start_game() {
 			spawn_amount = 1;
 			spawn_amount_increase = 50;
 			difficulty_increase = 30;
-			for (int i = 0; i < 100; i++) {
+			thorned_shield_cd = -2;
+			thorned_shield_dash = 0;
+			item_spawn_cd = 0;
+			control = true;
+			dash_check = false;
+			thorn_dash = false;
+			for (i = 0; i < 100; i++) {
 				spawn_pool[i] = 1;
+				item_spawn_pool[i] = false;
+			}
+			for (i = 0; i < item_spawn_chance; i++) {
+				item_spawn_pool[i] = true;
+			}
+			if (weapon == "Sword") {
+				weapon_cooldown = 1;
+				damage = 1;
+				weapon_id = 3;
+			}
+			else if (weapon == "Bat") {
+				weapon_cooldown = 2;
+				damage = 2;
+				weapon_id = 20;
+			}
+			else if (weapon == "Claymore") {
+				weapon_cooldown = 3;
+				damage = 5;
+				weapon_id = 21;
+			}
+			if (tool == "Shield") {
+				tool_id = 4;
+			}
+			else if (tool == "Big Shield") {
+				tool_id = 23;
+			}
+			else if (tool == "Thorned Shield") {
+				tool_id = 24;
 			}
 			swing = false;
 			start = false;
@@ -281,7 +444,7 @@ void Game::store() {
 	}
 
 	gui.set_Sprite_at_Pixel((WIDTH / 2) - 69, 90, switch_item);
-	write("Current: " + item_selected, (WIDTH / 2) - (15 * (4 + (tool.length() / 2))), 65, "chars_small");
+	write("Current: " + item_selected, (WIDTH / 2) - (15 * (4 + (item_selected.length() / 2))), 65, "chars_small");
 
 	// Weapons
 	write("Current Weapon: " + weapon, (WIDTH / 2) - (15 * (8 + (weapon.length() / 2))), 400, "chars_small");
@@ -311,7 +474,7 @@ void Game::store() {
 
 	gui.set_Sprite_at_Pixel(770, 600, big_shield_button);
 	if (tool_prices[1] > 0) {
-		write("Price: " + std::to_string(weapon_prices[1]), 635, 627, "chars_small");
+		write("Price: " + std::to_string(tool_prices[1]), 635, 627, "chars_small");
 	}
 	else {
 		write("Purchased", 635, 627, "chars_small");
@@ -319,7 +482,7 @@ void Game::store() {
 
 	gui.set_Sprite_at_Pixel(770, 720, thorned_shield_button);
 	if (tool_prices[2] > 0) {
-		write("Price: " + std::to_string(weapon_prices[2]), 620, 747, "chars_small");
+		write("Price: " + std::to_string(tool_prices[2]), 620, 747, "chars_small");
 	}
 	else {
 		write("Purchased", 635, 747, "chars_small");
@@ -374,9 +537,6 @@ void Game::store() {
 				click.Play();
 				cash -= upgrade_prices[3];
 				item_spawn_chance += 5;
-				for (i = 0; i < item_spawn_chance; i++) {
-					item_spawn_pool[i] = true;
-				}
 				upgrade_prices[3] += 25;
 				std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
 			}
@@ -557,13 +717,54 @@ void Game::key_press() {
 			dir_y /= hyp;
 		}
 
-		if (!shielding) {
+		if (!shielding && control) {
 			player_pos[0] += round(dir_x * player_speed);
 			player_pos[1] += round(dir_y * player_speed);
 		}
-		else {
+		else if (control) {
 			player_pos[0] += round(dir_x * 6);
 			player_pos[1] += round(dir_y * 6);
+		}
+		if (thorn_dash) {
+			if (game_time - thorned_shield_dash < 0.5) {
+				if (attack_dir == 0) {
+					player_pos[0] += 15;
+					player_pos[1] += 0;
+				}
+				else if (attack_dir == 4) {
+					player_pos[0] += 12;
+					player_pos[1] += -12;
+				}
+				else if (attack_dir == 3) {
+					player_pos[0] += 0;
+					player_pos[1] += -15;
+				}
+				else if (attack_dir == 7) {
+					player_pos[0] += -12;
+					player_pos[1] += -12;
+				}
+				else if (attack_dir == 2) {
+					player_pos[0] += -15;
+					player_pos[1] += 0;
+				}
+				else if (attack_dir == 6) {
+					player_pos[0] += -12;
+					player_pos[1] += 12;
+				}
+				else if (attack_dir == 1) {
+					player_pos[0] += 0;
+					player_pos[1] += 15;
+				}
+				else if (attack_dir == 5) {
+					player_pos[0] += 12;
+					player_pos[1] += 12;
+				}
+			}
+			else {
+				control = true;
+				thorn_dash = false;
+				thorned_shield_cd = game_time;
+			}
 		}
 
 		if (player_pos[0] >= 995) {
@@ -588,62 +789,75 @@ void Game::key_press() {
 
 		if (player_dir <= 22 && player_dir >= -22) {
 			arrow_image = 0;
-			attack_dir = 0;
+			if (!swing && !thorn_dash) {
+				attack_dir = 0;
+			}
 		}
 		else if (player_dir > 22 && player_dir < 68) {
 			arrow_image = 4;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 4;
 			}
 		}
 		else if (player_dir >= 68 && player_dir <= 112) {
 			arrow_image = 3;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 3;
 			}
 		}
 		else if (player_dir > 112 && player_dir < 158) {
 			arrow_image = 7;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 7;
 			}
 		}
 		else if (player_dir >= 158 && player_dir >= -158) {
 			arrow_image = 2;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 2;
 			}
 		}
 		else if (player_dir > -158 && player_dir < -112) {
 			arrow_image = 6;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 6;
 			}
 		}
 		else if (player_dir >= -112 && player_dir <= -68) {
 			arrow_image = 1;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 1;
 			}
 		}
 		else if (player_dir > -68 && player_dir <= -2) {
 			arrow_image = 5;
-			if (!swing) {
+			if (!swing && !thorn_dash) {
 				attack_dir = 5;
 			}
 		}
 
-		if (window.mouse.LeftIsPressed() && game_time - attack_cooldown >= 1 && !shielding) {
+		if (window.mouse.LeftIsPressed() && game_time - attack_cooldown >= weapon_cooldown && !shielding) {
 			swing_sfx.Play();
 			swing = true;
 			frame = frames;
 			attack_cooldown = game_time;
+			claymore_anim = 0;
 		}
 		if (window.mouse.RightIsPressed() && !swing) {
 			shielding = true;
+			if (tool == "Thorned Shield" && game_time - thorned_shield_cd >= 2 && !dash_check) {
+				thorn_dash = true;
+				thorned_shield_dash = game_time;
+				control = false;
+				dash_check = true;
+			}
+			else if (tool == "Thorned Shield") {
+				dash_check = true;
+			}
 		}
 		else if (!window.mouse.RightIsPressed()) {
 			shielding = false;
+			dash_check = false;
 		}
 	}
 }
@@ -676,9 +890,31 @@ void Game::spawn_enemy() {
 				enemy_arr[i].spawn(3, 1, 2, spawn_x, spawn_y);
 			}
 			else if (type == 4) {
-				enemy_arr[i].spawn(4, 5, 3, spawn_x, spawn_y);
+				enemy_arr[i].spawn(4, enemy_spawn_hp + 5, 3, spawn_x, spawn_y);
 			}
 			break;
+		}
+	}
+}
+
+void Game::spawn_item() {
+	int spawn_x = rand() % WIDTH;
+	int spawn_y = rand() % HEIGHT;
+
+	for (i = 0; i < 100; i++) {
+		if (item_arr[i].type == 0) {
+			if (item_spawn_pool[rand() % 100]) {
+				if (item_selected == "Medkit") {
+					item_arr[i].spawn(spawn_x, spawn_y, 1);
+				}
+				else {
+					item_arr[i].spawn(spawn_x, spawn_y, 2);
+				}
+				break;
+			}
+			else {
+				break;
+			}
 		}
 	}
 }
@@ -696,6 +932,9 @@ void Game::reset_collisions() {
 void Game::game_over() {
 	for (i = 0; i < 200; i++) {
 		enemy_arr[i].die();
+	}
+	for (i = 0; i < 100; i++) {
+		item_arr[i].remove();
 	}
 	cash += score;
 	start = true;

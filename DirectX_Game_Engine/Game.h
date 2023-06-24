@@ -37,6 +37,10 @@ private:
 	Sound swing_sfx = Sound(L"./Sounds/Swing_Hit_SFX.wav");
 	Sound click = Sound(L"./Sounds/Click.wav");
 	Sound click_fail = Sound(L"./Sounds/Click_Fail.wav");
+	Sound explosion = Sound(L"./Sounds/explosion.wav");
+	Sound heal = Sound(L"./Sounds/Heal.wav");
+	Sound claymore_sfx = Sound(L"./Sounds/Claymore_Swing.wav");
+	Sound bat_swing = Sound(L"./Sounds/Bat_Swing.wav");
 
 	Sprite play = Sprite(1, "Images/Play_Button.bmp", grey_screen, nullptr);
 	Sprite player = Sprite(2, "Images/34x34sprites.bmp", grey_screen, nullptr, 9, 1);

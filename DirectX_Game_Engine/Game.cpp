@@ -270,7 +270,7 @@ void Game::game_loop() {
 						}
 					}
 					if (gui.get_CollissionMap_Data_at_Pixel(enemy_arr[i].pos[0] + check_x, enemy_arr[i].pos[1] + check_y) == 26) {
-						hurt.Play();
+						explosion.Play();
 						for (int j = 0; j < 100; j++) {
 							if (item_arr[j].type == 2) {
 								for (int _check_x = 0; _check_x < 32; _check_x++) {
@@ -837,7 +837,15 @@ void Game::key_press() {
 		}
 
 		if (window.mouse.LeftIsPressed() && game_time - attack_cooldown >= weapon_cooldown && !shielding) {
-			swing_sfx.Play();
+			if (weapon == "Sword") {
+				swing_sfx.Play();
+			}
+			else if (weapon == "Bat") {
+				bat_swing.Play();
+			}
+			else if (weapon == "Claymore") {
+				claymore_sfx.Play();
+			}
 			swing = true;
 			frame = frames;
 			attack_cooldown = game_time;

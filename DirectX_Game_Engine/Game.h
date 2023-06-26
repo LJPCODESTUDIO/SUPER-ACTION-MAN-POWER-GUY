@@ -106,7 +106,7 @@ private:
 	int frames = 0; // Keeps track of amount of frames in entire game
 	int frame = 0; // Will probably need to change the name of this or something, this is what tracks animation frames
 	int score = 0;
-	int cash = 9999;
+	int cash = 0;
 	int spawn_amount = 1;
 	int spawn_amount_increase = 50;
 	int spawn_pool[100];
@@ -127,7 +127,7 @@ private:
 	int weapon_prices[3] = {
 		0, // Sword
 		50, // Bat
-		100 // Claymore
+		150 // Claymore
 	};
 	int tool_prices[3] = {
 		0, // Normal Shield

@@ -333,6 +333,7 @@ void Game::start_game() {
 			frames = 0;
 			frame = 0;
 			score = 0;
+			difficulty = 1;
 			frame_time = 0;
 			enemy_spawn_hp = 1;
 			spawn_amount = 1;
@@ -345,7 +346,7 @@ void Game::start_game() {
 			dash_check = false;
 			thorn_dash = false;
 			for (i = 0; i < 100; i++) {
-				spawn_pool[i] = 1;
+				spawn_pool[i] = 2;
 				item_spawn_pool[i] = false;
 			}
 			for (i = 0; i < item_spawn_chance; i++) {
@@ -357,13 +358,13 @@ void Game::start_game() {
 				weapon_id = 3;
 			}
 			else if (weapon == "Bat") {
-				weapon_cooldown = 2;
-				damage = 2;
+				weapon_cooldown = 3;
+				damage = 5;
 				weapon_id = 20;
 			}
 			else if (weapon == "Claymore") {
-				weapon_cooldown = 3;
-				damage = 5;
+				weapon_cooldown = 5;
+				damage = 20;
 				weapon_id = 21;
 			}
 			if (tool == "Shield") {
@@ -405,7 +406,7 @@ void Game::store() {
 	gui.set_Target_SubGui(2, 0);
 	gui.set_RGB_on_Gui(grey);
 
-	write(std::to_string(window.mouse.GetPosX()) + "," + std::to_string(window.mouse.GetPosY()), 0, HEIGHT - 25, "chars_small");
+	//write(std::to_string(window.mouse.GetPosX()) + "," + std::to_string(window.mouse.GetPosY()), 0, HEIGHT - 25, "chars_small");
 
 	gui.set_Sprite_at_Pixel(20, 20, back);
 	write("Cash: " + std::to_string(cash), (WIDTH / 2) - (15 * (3 + (std::to_string(cash).length() / 2))), 0, "chars_small");
